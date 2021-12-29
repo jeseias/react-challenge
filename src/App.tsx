@@ -1,7 +1,12 @@
+import { ChakraProvider } from "@chakra-ui/react"
 import React from "react"
 
-function App(){
-    return <h1>Fuerza Test</h1>
+const App: React.FC = () => {
+  return (
+    <ChakraProvider>
+      <App />
+    </ChakraProvider>
+  )
 }
 
 export default App
