@@ -22,10 +22,7 @@ const SignUp: React.FC = () => {
             </Box>
             <CustomInput label="Set your password" />
           </form>
-        </Box>
-        <Flex justifyContent="flex-end" mt="1.2rem">
-          <LinkText to={PageRoutes.ForgotPassword} tiny>Forgot Password?</LinkText> 
-        </Flex>
+        </Box> 
         <Flex justifyContent="center" mt="4rem">
           <CustomButton>Sign In</CustomButton>
         </Flex>

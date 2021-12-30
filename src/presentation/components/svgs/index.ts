@@ -1,3 +1,5 @@
 export { default as LogoSVG } from './logo-svg'
 export { default as OwlSVG } from './owl-svg'
-export { default as Empty } from './empty-svg'
+export { default as EmptySVG } from './empty-svg'
+export { default as AddSVG } from './add-svg'
+export { default as ChevronLeftSVG } from './chevron-left-svg'
