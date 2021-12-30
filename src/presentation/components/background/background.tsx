@@ -4,7 +4,7 @@ import { OwlSVG } from '../svgs'
 
 const Background: React.FC = ({ children }) => {
   return (
-    <Box bg="light" w="100vw"  position="relative">
+    <Box bg="light" w="100vw"  minHeight="100vh" position="relative">
       <Box position="fixed" w="100vw" minHeight="100vh" p="4.2rem 0 0 0" zIndex={1}>
         <OwlSVG />
       </Box>
