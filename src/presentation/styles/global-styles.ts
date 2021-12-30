@@ -8,12 +8,6 @@ export const globalStyles = {
   },
   html: {
     fontSize: '62.5%',
-    // '@media screen and (max-width: 75.5em)': {
-    //   fontSize: '56.25%'
-    // },
-    // '@media screen and (max-width: 56.25em)': {
-    //   fontSize: '50%'
-    // }
   },
   'body, button, input': {
     fontFamily: 'Roboto, Arial, Helvetica, sans-serif'
