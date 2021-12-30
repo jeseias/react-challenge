@@ -1,2 +1,6 @@
 export { default as Background } from './background/background'
+export { default as Title } from './title/title'
+export { default as LinkText } from './link-text/link-text'
+export { default as CustomButton } from './custom-button/custom-button'
+export { default as CustomInput } from './custom-input/custom-input'
 export * from './svgs'
