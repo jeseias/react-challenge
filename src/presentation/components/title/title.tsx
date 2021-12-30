@@ -3,7 +3,16 @@ import { Text, TextProps } from '@chakra-ui/react'
 
 const Title: React.FC<TextProps> = ({ children, ...rest }) => {
   return (
-    <Text color="secondary.500" fontSize={['3.2rem']} fontStyle="normal" {...rest}>{children}</Text>
+    <Text 
+      fontSize={['2.4rem']} 
+      fontWeight="bold"
+      fontStyle="normal"
+      lineHeight="2.8rem"
+      color="black" 
+      {...rest}
+    >
+      {children}
+    </Text>
   )
 }
 

@@ -4,6 +4,6 @@ export enum PageRoutes {
   ForgotPassword = '/forgot-password',
   JournalsList = '/journals',
   CreateJournal = '/journals/create',
-  JournalsPost = '/journals/post',
-  CreateJournalPost = 'journals/post/create',
+  JournalsPost = '/journals/posts',
+  CreateJournalPost = 'journals/posts/create',
 }

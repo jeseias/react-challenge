@@ -5,7 +5,7 @@ type Props = {
   label: string
 }
 
-const CustomInput: React.FC<Props & InputProps> = ({ label, ...rest }) => {
+const AuthInput: React.FC<Props & InputProps> = ({ label, ...rest }) => {
   const [isLabelVisible, setIsLabelVisible] = useState(true)
 
   return (
@@ -47,4 +47,4 @@ const CustomInput: React.FC<Props & InputProps> = ({ label, ...rest }) => {
   )
 }
 
-export default CustomInput
+export default AuthInput

@@ -22,7 +22,10 @@ export const globalStyles = {
 
 export const theme = extendTheme({
   colors: {
-    light: '#F8E5D6',
+    light: {
+      400: '#FAF2EC',
+      500: '#F8E5D6'
+    },
     primary: {
       500: '#804627',
       600: '#834825',
