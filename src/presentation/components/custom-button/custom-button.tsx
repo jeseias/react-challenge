@@ -4,7 +4,7 @@ import React from 'react'
 const CustomButton: React.FC<ButtonProps> = ({ children,  ...rest}) => {
   return (
     <Button 
-      display="inline-block"
+      display="block"
       borderRadius="4rem" 
       bg="secondary.600" 
       minWidth="16.1rem" 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Box, Flex, Input, Text,  } from "@chakra-ui/react"
-import { CustomButton, LogoSVG } from 'presentation/components'
+import { Box, Flex, Text,  } from "@chakra-ui/react"
+import { CustomButton, TextField, LogoSVG } from 'presentation/components'
 
 const CreateJournal: React.FC = () => {
   const [name, setName] = useState('')
@@ -33,15 +33,7 @@ const CreateJournal: React.FC = () => {
         />
         <Text fontSize="2.4rem" fontWeight="bold">{name}</Text>
       </Flex>
-      <Input 
-        bg="rgba(255, 255, 255, 0.42)"
-        border=" 1px solid rgba(157, 164, 166, 0.07"
-        borderRadius=".4rem"
-        h="4rem"
-        fontSize="1.2rem"
-        fontWeight="600"
-        lineHeight="15px"
-        color="secondary.600"
+      <TextField 
         placeholder="james bond"
         onChange={e => setName(e.target.value)}
       />
