@@ -2,11 +2,15 @@ import { HttpClientSpy } from "data/protocols/http/__mocks__/mock-http";
 import { RemoteAuthentication } from "./remote-authentication";
 import * as faker from 'faker'
 import { Authentication } from "domain/usecases/authentication";
+import { HttpStatusCode } from "data/protocols/http/http-client";
+import { mockAccountModel } from "domain/__mocks__/mock-account";
 
 const mockAuthenticationParams = (): Authentication.Params => ({
   email: faker.internet.email(),
   password: faker.internet.password()
 })
+
+const mockAuthenticationModel = (): Authentication.Model => mockAccountModel()
 
 type SutTypes = {
   sut: RemoteAuthentication
@@ -39,16 +43,16 @@ describe('RemoteAuthentication', () => {
     expect(httpClientSpy.body).toBe(params)
   })
 
-  // it('Should return AddAccount.Model if HttpClient returns 200', async () => {
-  //   const {sut,httpClientSpy} = makeSut()
-  //   const httpResult = mockAddAccountModel()
-  //   httpClientSpy.response = {
-  //     statusCode: HttpStatusCode.ok,
-  //     body: httpResult
-  //   }
-  //   const account = await sut.add(mockAddAccountParams())
-  //   expect(account).toEqual(httpResult)
-  // })
+  it('Should return Authentication.Model if HttpClient returns 200', async () => {
+    const {sut,httpClientSpy} = makeSut()
+    const httpResult = mockAuthenticationModel()
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.ok,
+      body: httpResult
+    }
+    const account = await sut.auth(mockAuthenticationParams())
+    expect(account).toEqual(httpResult)
+  })
 
   // it('Should throw UserAlreadyExistsError if HttpClient returns 400', async () => {
   //   const {sut, httpClientSpy} = makeSut()

@@ -1,4 +1,4 @@
-import { HttpClient } from 'data/protocols/http/http-client';
+import { HttpClient, HttpStatusCode } from 'data/protocols/http/http-client';
 import { Authentication } from 'domain/usecases/authentication'
 
 export class RemoteAuthentication implements Authentication {
@@ -8,11 +8,15 @@ export class RemoteAuthentication implements Authentication {
   ) {}
 
   async auth(params: Authentication.Params): Promise<Authentication.Model> {
-    await this.httpClient.request({
+    const httpResponse = await this.httpClient.request({
       url: this.url,
       method: 'post',
       body: params
     })
+
+    switch (httpResponse.statusCode) {
+      case HttpStatusCode.ok: return httpResponse.body as Authentication.Model
+    }
   }
   
 }
