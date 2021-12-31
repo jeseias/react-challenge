@@ -4,6 +4,7 @@ import * as faker from 'faker'
 import { LoadJournals } from "domain/usecases/load-journals";
 import { mockJournal } from '../../../domain/__mocks__/mock-journal'
 import { HttpStatusCode } from "data/protocols/http/http-client";
+import { CanNotLoadUserJournalsError } from "domain/errors";
 
 
 const mockLoadJournalsModel = (): LoadJournals.Model => ([
@@ -44,14 +45,14 @@ describe('RemoteLoadJournals', () => {
     expect(journals).toEqual(httpResult)
   })
 
-  // it('Should throw UserDoesNotExistsError if HttpClient returns 400', async () => {
-  //   const {sut, httpClientSpy} = makeSut()
-  //   httpClientSpy.response = {
-  //     statusCode: HttpStatusCode.badRequest
-  //   }
-  //   const promise = sut.save(mockLoadJournalsParams())
-  //   await expect(promise).rejects.toThrow(new UserDoesNotExistsError())
-  // })
+  it('Should throw CanNotLoadUserJournalsError if HttpClient returns 400', async () => {
+    const {sut, httpClientSpy} = makeSut()
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.badRequest
+    }
+    const promise = sut.load()
+    await expect(promise).rejects.toThrow(new CanNotLoadUserJournalsError())
+  })
 
   // it('Should throw UnexpectedError if HttpClient returns unknown status', async () => {
   //   const {sut, httpClientSpy} = makeSut()
