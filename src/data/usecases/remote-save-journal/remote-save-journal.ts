@@ -1,5 +1,5 @@
 import { HttpClient, HttpStatusCode } from "data/protocols/http/http-client";
-import { UserDoesNotExistsError } from "domain/errors";
+import { UnexpectedError, UserDoesNotExistsError } from "domain/errors";
 import { SaveJournal } from "domain/usecases/save-journal";
 
 export class RemoteSaveJournal implements SaveJournal {
@@ -18,6 +18,7 @@ export class RemoteSaveJournal implements SaveJournal {
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok: return httpResponse.body as RemoteSaveJournal.Model
       case HttpStatusCode.badRequest: throw new UserDoesNotExistsError()
+      default: throw new UnexpectedError()
     }
   }
 }

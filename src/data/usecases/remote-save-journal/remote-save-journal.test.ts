@@ -54,12 +54,21 @@ describe('RemoteSaveJournal', () => {
     expect(journal).toEqual(httpResult)
   })
 
-  it('Should throws UserDoesNotExistsError if HttpClient returns 400', async () => {
+  it('Should throw UserDoesNotExistsError if HttpClient returns 400', async () => {
     const {sut, httpClientSpy} = makeSut()
     httpClientSpy.response = {
       statusCode: HttpStatusCode.badRequest
     }
     const promise = sut.save(mockSaveJournalParams())
     await expect(promise).rejects.toThrow(new UserDoesNotExistsError())
+  })
+
+  it('Should throw UnexpectedError if HttpClient returns unknown status', async () => {
+    const {sut, httpClientSpy} = makeSut()
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.serverError
+    }
+    const promise = sut.save(mockSaveJournalParams())
+    await expect(promise).rejects.toThrow()
   })
 });
