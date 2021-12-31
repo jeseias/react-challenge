@@ -69,4 +69,13 @@ describe('RemoteAddAccount', () => {
     const promise = sut.add(mockAddAccountParams())
     await expect(promise).rejects.toThrow(new UserAlreadyExistsError())
   })
+
+  it('Should throw UnexpectedError if HttpClient returns unknown status', async () => {
+    const {sut, httpClientSpy} = makeSut()
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.unauthorized
+    }
+    const promise = sut.add(mockAddAccountParams())
+    await expect(promise).rejects.toThrow()
+  })
 });
