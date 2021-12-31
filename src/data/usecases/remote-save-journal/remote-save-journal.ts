@@ -1,4 +1,4 @@
-import { HttpClient } from "data/protocols/http/http-client";
+import { HttpClient, HttpStatusCode } from "data/protocols/http/http-client";
 import { SaveJournal } from "domain/usecases/save-journal";
 
 export class RemoteSaveJournal implements SaveJournal {
@@ -6,13 +6,17 @@ export class RemoteSaveJournal implements SaveJournal {
     private readonly url: string,
     private readonly httpClient: HttpClient<RemoteSaveJournal.Model>,
   ){}
-  
+
   async save(params: RemoteSaveJournal.Params): Promise<RemoteSaveJournal.Model> {
-    await this.httpClient.request({
+    const httpResponse = await this.httpClient.request({
       url: this.url,
       method: 'post',
       body: params
     })
+
+    switch (httpResponse.statusCode) {
+      case HttpStatusCode.ok: return httpResponse.body as RemoteSaveJournal.Model
+    }
   }
 }
 

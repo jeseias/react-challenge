@@ -2,10 +2,20 @@ import { HttpClientSpy } from "data/protocols/http/__mocks__/mock-http";
 import { SaveJournal } from "domain/usecases/save-journal";
 import { RemoteSaveJournal } from "./remote-save-journal";
 import * as faker from 'faker'
+import { HttpStatusCode } from "data/protocols/http/http-client";
 
 const mockSaveJournalParams = (): RemoteSaveJournal.Params => ({
   title: faker.datatype.string(),
   type: faker.random.arrayElement(['public', 'private'])
+})
+
+const mockSaveJournalModel = (): RemoteSaveJournal.Model => ({
+  title: faker.datatype.string(),
+  type: faker.random.arrayElement(['public', 'private']),
+  id: faker.datatype.uuid(),
+  userId: faker.datatype.uuid(),
+  entryIds: faker.random.arrayElements(['1','2','3']),
+  createdAt: faker.date.past().toLocaleDateString(),
 })
 
 type SutTypes = {
@@ -30,5 +40,16 @@ describe('RemoteSaveJournal', () => {
     expect(httpClientSpy.url).toBe(url)
     expect(httpClientSpy.method).toBe('post')
     expect(httpClientSpy.body).toBe(params)
+  })
+
+  it('Should returns RemoteSaveJournal.Model if HttpClient returns 200', async () => {
+    const {sut, httpClientSpy} = makeSut()
+    const httpResult = mockSaveJournalModel()
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.ok,
+      body: httpResult
+    }
+    const journal = await sut.save(mockSaveJournalParams())
+    expect(journal).toEqual(httpResult)
   })
 });
