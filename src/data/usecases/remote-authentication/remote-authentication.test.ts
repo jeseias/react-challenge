@@ -55,7 +55,7 @@ describe('RemoteAuthentication', () => {
     expect(account).toEqual(httpResult)
   })
 
-  it('Should throw InvalidCredentialsError if HttpClient returns 400', async () => {
+  it('Should throws InvalidCredentialsError if HttpClient returns 400', async () => {
     const {sut, httpClientSpy} = makeSut()
     httpClientSpy.response = {
       statusCode: HttpStatusCode.badRequest,
@@ -64,12 +64,12 @@ describe('RemoteAuthentication', () => {
     await expect(promise).rejects.toThrow(new InvalidCredentialsError())
   })
 
-  // it('Should throw UnexpectedError if HttpClient returns unknown status', async () => {
-  //   const {sut, httpClientSpy} = makeSut()
-  //   httpClientSpy.response = {
-  //     statusCode: HttpStatusCode.unauthorized
-  //   }
-  //   const promise = sut.add(mockAddAccountParams())
-  //   await expect(promise).rejects.toThrow()
-  // })
+  it('Should throws UnexpectedError if HttpClient returns unknown status', async () => {
+    const {sut, httpClientSpy} = makeSut()
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.unauthorized
+    }
+    const promise = sut.auth(mockAuthenticationParams())
+    await expect(promise).rejects.toThrow()
+  })
 });
