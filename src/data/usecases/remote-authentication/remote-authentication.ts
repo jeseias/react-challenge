@@ -1,4 +1,5 @@
 import { HttpClient, HttpStatusCode } from 'data/protocols/http/http-client';
+import { InvalidCredentialsError } from 'domain/errors/invalid-credentials-error';
 import { Authentication } from 'domain/usecases/authentication'
 
 export class RemoteAuthentication implements Authentication {
@@ -16,6 +17,7 @@ export class RemoteAuthentication implements Authentication {
 
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok: return httpResponse.body as Authentication.Model
+      case HttpStatusCode.badRequest: throw new InvalidCredentialsError()
     }
   }
   

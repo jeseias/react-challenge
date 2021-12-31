@@ -4,6 +4,7 @@ import * as faker from 'faker'
 import { Authentication } from "domain/usecases/authentication";
 import { HttpStatusCode } from "data/protocols/http/http-client";
 import { mockAccountModel } from "domain/__mocks__/mock-account";
+import { InvalidCredentialsError } from "domain/errors/invalid-credentials-error";
 
 const mockAuthenticationParams = (): Authentication.Params => ({
   email: faker.internet.email(),
@@ -54,14 +55,14 @@ describe('RemoteAuthentication', () => {
     expect(account).toEqual(httpResult)
   })
 
-  // it('Should throw UserAlreadyExistsError if HttpClient returns 400', async () => {
-  //   const {sut, httpClientSpy} = makeSut()
-  //   httpClientSpy.response = {
-  //     statusCode: HttpStatusCode.badRequest,
-  //   }
-  //   const promise = sut.add(mockAddAccountParams())
-  //   await expect(promise).rejects.toThrow(new UserAlreadyExistsError())
-  // })
+  it('Should throw InvalidCredentialsError if HttpClient returns 400', async () => {
+    const {sut, httpClientSpy} = makeSut()
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.badRequest,
+    }
+    const promise = sut.auth(mockAuthenticationParams())
+    await expect(promise).rejects.toThrow(new InvalidCredentialsError())
+  })
 
   // it('Should throw UnexpectedError if HttpClient returns unknown status', async () => {
   //   const {sut, httpClientSpy} = makeSut()
