@@ -1,7 +1,7 @@
-import { Account } from "domain/models/account";
+import { AccountModel } from "domain/models/account";
 import * as faker from 'faker'
 
-export const mockAccountModel = (): Account => ({
+export const mockAccountModel = (): AccountModel => ({
   token: faker.datatype.uuid(),
   user: {
     id: faker.datatype.uuid(),
