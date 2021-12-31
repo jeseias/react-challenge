@@ -50,12 +50,12 @@ describe('RemoteSaveEntry', () => {
     await expect(promise).rejects.toThrow(new FailInToSave('entry'))
   })
 
-  // it('Should throw UnexpectedError if HttpClient returns unknown status', async () => {
-  //   const {sut, httpClientSpy} = makeSut()
-  //   httpClientSpy.response = {
-  //     statusCode: HttpStatusCode.serverError
-  //   }
-  //   const promise = sut.save(mockSaveEntryParams())
-  //   await expect(promise).rejects.toThrow()
-  // })
+  it('Should throw UnexpectedError if HttpClient returns unknown status', async () => {
+    const {sut, httpClientSpy} = makeSut()
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.serverError
+    }
+    const promise = sut.save(mockSaveEntryParams())
+    await expect(promise).rejects.toThrow()
+  })
 });
