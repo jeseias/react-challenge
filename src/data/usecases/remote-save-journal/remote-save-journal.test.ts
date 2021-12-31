@@ -4,20 +4,7 @@ import { RemoteSaveJournal } from "./remote-save-journal";
 import * as faker from 'faker'
 import { HttpStatusCode } from "data/protocols/http/http-client";
 import { UserDoesNotExistsError } from "domain/errors";
-
-const mockSaveJournalParams = (): RemoteSaveJournal.Params => ({
-  title: faker.datatype.string(),
-  type: faker.random.arrayElement(['public', 'private'])
-})
-
-const mockSaveJournalModel = (): RemoteSaveJournal.Model => ({
-  title: faker.datatype.string(),
-  type: faker.random.arrayElement(['public', 'private']),
-  id: faker.datatype.uuid(),
-  userId: faker.datatype.uuid(),
-  entryIds: faker.random.arrayElements(['1','2','3']),
-  createdAt: faker.date.past().toLocaleDateString(),
-})
+import { mockSaveJournalModel, mockSaveJournalParams } from "domain/__mocks__/mock-journal";
 
 type SutTypes = {
   sut: RemoteSaveJournal
