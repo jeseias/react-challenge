@@ -3,15 +3,8 @@ import { RemoteAuthentication } from "./remote-authentication";
 import * as faker from 'faker'
 import { Authentication } from "domain/usecases/authentication";
 import { HttpStatusCode } from "data/protocols/http/http-client";
-import { mockAccountModel } from "domain/__mocks__/mock-account";
 import { InvalidCredentialsError } from "domain/errors/invalid-credentials-error";
-
-const mockAuthenticationParams = (): Authentication.Params => ({
-  email: faker.internet.email(),
-  password: faker.internet.password()
-})
-
-const mockAuthenticationModel = (): Authentication.Model => mockAccountModel()
+import { mockAuthenticationModel, mockAuthenticationParams } from "domain/__mocks__/mock-authentication";
 
 type SutTypes = {
   sut: RemoteAuthentication
