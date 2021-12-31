@@ -54,12 +54,12 @@ describe('RemoteLoadJournals', () => {
     await expect(promise).rejects.toThrow(new CanNotLoadUserJournalsError())
   })
 
-  // it('Should throw UnexpectedError if HttpClient returns unknown status', async () => {
-  //   const {sut, httpClientSpy} = makeSut()
-  //   httpClientSpy.response = {
-  //     statusCode: HttpStatusCode.serverError
-  //   }
-  //   const promise = sut.save(mockLoadJournalsParams())
-  //   await expect(promise).rejects.toThrow()
-  // })
+  it('Should throw UnexpectedError if HttpClient returns unknown status', async () => {
+    const {sut, httpClientSpy} = makeSut()
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.serverError
+    }
+    const promise = sut.load()
+    await expect(promise).rejects.toThrow()
+  })
 });
