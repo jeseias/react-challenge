@@ -1,4 +1,5 @@
 import { Journal } from "domain/models/journal"
+import { LoadJournals } from "domain/usecases/load-journals"
 import { SaveJournal } from "domain/usecases/save-journal"
 import * as faker from 'faker'
 
@@ -10,10 +11,12 @@ export const mockJournal = (): Journal => ({
   entryIds: faker.random.arrayElements(['1','2','3']),
   createdAt: faker.date.past().toLocaleDateString(),
 })
-
 export const mockSaveJournalParams = (): SaveJournal.Params => ({
   title: faker.datatype.string(),
   type: faker.random.arrayElement(['public', 'private'])
 })
-
 export const mockSaveJournalModel = (): SaveJournal.Model => mockJournal()
+export const mockLoadJournalsModel = (): LoadJournals.Model => ([
+  mockJournal(),
+  mockJournal(),
+])

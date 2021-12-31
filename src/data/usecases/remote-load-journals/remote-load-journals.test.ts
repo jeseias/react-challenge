@@ -2,15 +2,9 @@ import { HttpClientSpy } from "data/protocols/http/__mocks__/mock-http";
 import { RemoteLoadJournals } from "./remote-load-journals";
 import * as faker from 'faker'
 import { LoadJournals } from "domain/usecases/load-journals";
-import { mockJournal } from '../../../domain/__mocks__/mock-journal'
 import { HttpStatusCode } from "data/protocols/http/http-client";
 import { CanNotLoadUserJournalsError } from "domain/errors";
-
-
-const mockLoadJournalsModel = (): LoadJournals.Model => ([
-  mockJournal(),
-  mockJournal(),
-])
+import { mockLoadJournalsModel } from "domain/__mocks__/mock-journal";
 
 type SutTypes = {
   sut: RemoteLoadJournals
@@ -25,6 +19,7 @@ const makeSut = (url: string = faker.internet.url()): SutTypes => {
     httpClientSpy
   }
 }
+
 describe('RemoteLoadJournals', () => {
   it('Should call HttpClient with correct values', async () => {
     const url = faker.internet.url()
