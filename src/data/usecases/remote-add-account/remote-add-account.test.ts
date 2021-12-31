@@ -3,20 +3,7 @@ import { RemoteAddAccount } from "./remote-add-account";
 import * as faker from 'faker'
 import { HttpStatusCode } from "data/protocols/http/http-client";
 import { UserAlreadyExistsError } from "domain/errors/user-already-exists-error"; 
-
-const mockAddAccountParams = (): RemoteAddAccount.Param => ({
-  email: faker.internet.email(),
-  username: faker.internet.userName(),
-  password: faker.internet.password()
-})
-
-const mockAddAccountModel = (): RemoteAddAccount.Model => ({
-  email: faker.internet.email(),
-  username: faker.internet.userName(),
-  journalIds: faker.random.arrayElements(['2', '21', '43']),
-  id: faker.datatype.uuid(),
-  password: faker.internet.password(),
-})
+import { mockAddAccountModel, mockAddAccountParams } from "domain/__mocks__/mock-add-account";
 
 type SutTypes = {
   sut: RemoteAddAccount
@@ -26,7 +13,6 @@ type SutTypes = {
 const makeSut = (url: string = faker.internet.url()): SutTypes => {
   const httpClientSpy = new HttpClientSpy<RemoteAddAccount.Model>()
   const sut = new RemoteAddAccount(url, httpClientSpy)
-
   return {
     sut,
     httpClientSpy

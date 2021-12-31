@@ -1,4 +1,4 @@
-import { User } from "domain/models/user"
+import { Account } from "domain/models/account"
 
 export interface AddAccount {
   add(params: AddAccount.Params): Promise<AddAccount.Model>
@@ -11,5 +11,5 @@ export namespace AddAccount {
     password?: string;
   } 
 
-  export type Model = User
+  export type Model = Account
 }
