@@ -3,7 +3,7 @@ import { RemoteLoadJournals } from "./remote-load-journals";
 import * as faker from 'faker'
 import { LoadJournals } from "domain/usecases/load-journals";
 import { HttpStatusCode } from "data/protocols/http/http-client";
-import { CanNotLoadUserJournalsError } from "domain/errors";
+import { FailInLoadError } from "domain/errors";
 import { mockLoadJournalsModel } from "domain/__mocks__/mock-journal";
 
 type SutTypes = {
@@ -40,13 +40,13 @@ describe('RemoteLoadJournals', () => {
     expect(journals).toEqual(httpResult)
   })
 
-  it('Should throw CanNotLoadUserJournalsError if HttpClient returns 400', async () => {
+  it('Should throw FailInLoadError if HttpClient returns 400', async () => {
     const {sut, httpClientSpy} = makeSut()
     httpClientSpy.response = {
       statusCode: HttpStatusCode.badRequest
     }
     const promise = sut.load()
-    await expect(promise).rejects.toThrow(new CanNotLoadUserJournalsError())
+    await expect(promise).rejects.toThrow(new FailInLoadError('journals'))
   })
 
   it('Should throw UnexpectedError if HttpClient returns unknown status', async () => {

@@ -1,5 +1,5 @@
 import { HttpClient, HttpStatusCode } from "data/protocols/http/http-client";
-import { CanNotLoadUserJournalsError, UnexpectedError  } from "domain/errors";
+import { UnexpectedError, FailInLoadError  } from "domain/errors";
 import { LoadJournals } from "domain/usecases/load-journals";
 
 export class RemoteLoadJournals implements LoadJournals {
@@ -16,7 +16,7 @@ export class RemoteLoadJournals implements LoadJournals {
 
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok: return httpResponse.body as RemoteLoadJournals.Model
-      case HttpStatusCode.badRequest: throw new CanNotLoadUserJournalsError()
+      case HttpStatusCode.badRequest: throw new FailInLoadError('journals')
       default: throw new UnexpectedError()
     }
   }

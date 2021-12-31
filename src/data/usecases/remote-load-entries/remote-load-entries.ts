@@ -1,5 +1,5 @@
 import { HttpClient, HttpStatusCode } from "data/protocols/http/http-client";
-import { CanNotLoadUserJournalsError, UnexpectedError  } from "domain/errors";
+import { FailInLoadError, UnexpectedError  } from "domain/errors";
 import { LoadEntries } from "domain/usecases/load-entries";
 
 export class RemoteLoadEntries implements LoadEntries {
@@ -16,7 +16,7 @@ export class RemoteLoadEntries implements LoadEntries {
 
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok: return httpResponse.body as RemoteLoadEntries.Model
-      case HttpStatusCode.badRequest: throw new CanNotLoadUserJournalsError()
+      case HttpStatusCode.badRequest: throw new FailInLoadError('entries')
       default: throw new UnexpectedError()
     }
   }
