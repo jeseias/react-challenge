@@ -3,6 +3,7 @@ import { SaveJournal } from "domain/usecases/save-journal";
 import { RemoteSaveJournal } from "./remote-save-journal";
 import * as faker from 'faker'
 import { HttpStatusCode } from "data/protocols/http/http-client";
+import { UserDoesNotExistsError } from "domain/errors";
 
 const mockSaveJournalParams = (): RemoteSaveJournal.Params => ({
   title: faker.datatype.string(),
@@ -51,5 +52,14 @@ describe('RemoteSaveJournal', () => {
     }
     const journal = await sut.save(mockSaveJournalParams())
     expect(journal).toEqual(httpResult)
+  })
+
+  it('Should throws UserDoesNotExistsError if HttpClient returns 400', async () => {
+    const {sut, httpClientSpy} = makeSut()
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.badRequest
+    }
+    const promise = sut.save(mockSaveJournalParams())
+    await expect(promise).rejects.toThrow(new UserDoesNotExistsError())
   })
 });
