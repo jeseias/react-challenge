@@ -49,12 +49,12 @@ describe('RemoteLoadEntries', () => {
     await expect(promise).rejects.toThrow(new FailInLoadError('entries'))
   })
 
-  // it('Should throw UnexpectedError if HttpClient returns unknown status', async () => {
-  //   const {sut, httpClientSpy} = makeSut()
-  //   httpClientSpy.response = {
-  //     statusCode: HttpStatusCode.serverError
-  //   }
-  //   const promise = sut.load()
-  //   await expect(promise).rejects.toThrow()
-  // })
+  it('Should throw UnexpectedError if HttpClient returns unknown status', async () => {
+    const {sut, httpClientSpy} = makeSut()
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.serverError
+    }
+    const promise = sut.load()
+    await expect(promise).rejects.toThrow()
+  })
 });
