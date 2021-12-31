@@ -1,5 +1,5 @@
 import { HttpClient, HttpStatusCode } from "data/protocols/http/http-client";
-import { UnexpectedError, UserDoesNotExistsError } from "domain/errors";
+import { FailInToSave, UnexpectedError } from "domain/errors";
 import { SaveEntry } from "domain/usecases/save-entry";
 
 export class RemoteSaveEntry implements SaveEntry {
@@ -17,7 +17,7 @@ export class RemoteSaveEntry implements SaveEntry {
 
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok: return httpResponse.body as RemoteSaveEntry.Model
-      case HttpStatusCode.badRequest: throw new UserDoesNotExistsError()
+      case HttpStatusCode.badRequest: throw new FailInToSave('entry')
       default: throw new UnexpectedError()
     }
   }

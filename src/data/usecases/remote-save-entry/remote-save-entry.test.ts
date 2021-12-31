@@ -4,6 +4,7 @@ import { RemoteSaveEntry } from "./remote-save-entry";
 import * as faker from 'faker'
 import { mockEntryModel, mockSaveEntryParams } from "domain/__mocks__/mock-entries";
 import { HttpStatusCode } from "data/protocols/http/http-client";
+import { FailInToSave } from "domain/errors";
 
 type SutTypes = {
   sut: RemoteSaveEntry
@@ -40,14 +41,14 @@ describe('RemoteSaveEntry', () => {
     expect(journal).toEqual(httpResult)
   })
 
-  // it('Should throw UserDoesNotExistsError if HttpClient returns 400', async () => {
-  //   const {sut, httpClientSpy} = makeSut()
-  //   httpClientSpy.response = {
-  //     statusCode: HttpStatusCode.badRequest
-  //   }
-  //   const promise = sut.save(mockSaveEntryParams())
-  //   await expect(promise).rejects.toThrow(new UserDoesNotExistsError())
-  // })
+  it('Should throw FailInToSave if HttpClient returns 400', async () => {
+    const {sut, httpClientSpy} = makeSut()
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.badRequest
+    }
+    const promise = sut.save(mockSaveEntryParams())
+    await expect(promise).rejects.toThrow(new FailInToSave('entry'))
+  })
 
   // it('Should throw UnexpectedError if HttpClient returns unknown status', async () => {
   //   const {sut, httpClientSpy} = makeSut()
