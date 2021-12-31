@@ -1,4 +1,5 @@
 import { HttpClient, HttpStatusCode } from "data/protocols/http/http-client";
+import { UnexpectedError } from "domain/errors/unexpected-error";
 import { UserAlreadyExistsError } from "domain/errors/user-already-exists-error";
 import { AddAccount } from "domain/usecases/add-account";
 
@@ -16,7 +17,9 @@ export class RemoteAddAccount implements AddAccount {
     })
 
     switch (httpResponse.statusCode) {
+      case HttpStatusCode.ok: return httpResponse.body as AddAccount.Model
       case HttpStatusCode.badRequest: throw new UserAlreadyExistsError()
+      default: throw new UnexpectedError()
     }
   }
 }
