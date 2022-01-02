@@ -47,4 +47,11 @@ describe('CreateJournal Page', () => {
       type: 'public'
     })
   })
+
+
+  it('Should call saveJournal.save only once', () => {
+    const { saveJournalSpy } = makeSut()
+    fireEvent.click(screen.getByText('Save journal'))
+    expect(saveJournalSpy.callsCount).toEqual(1)
+  })
 });
