@@ -1,0 +1,35 @@
+import { AxiosHttpClient } from "./axios-http-client";
+import { mockAxios } from "./__mocks__/mock-axios";
+import axios from 'axios'
+import { mockHttpRequest } from "data/protocols/http/__mocks__/mock-http";
+
+jest.mock('axios')
+
+type SutTypes = {
+  sut: AxiosHttpClient
+  mockedAxios: jest.Mocked<typeof axios>
+}
+
+const makeSut = (): SutTypes => {
+  const sut = new AxiosHttpClient()
+  const  mockedAxios =  mockAxios()
+
+  return {
+    sut,
+    mockedAxios
+  }
+}
+
+describe('AxiosHttpClient', () => {
+  it('Should call axios with correct values', async () => {
+    const request = mockHttpRequest()
+    const {sut, mockedAxios } = makeSut()
+    await sut.request(request)
+    expect(mockedAxios.request).toHaveBeenCalledWith({
+      url: request.url,
+      data: request.body,
+      headers: request.headers,
+      method: request.method
+    })
+  })
+});
