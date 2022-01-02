@@ -4,9 +4,12 @@ import { LinkText, LogoSVG, AuthTitle, CustomButton, AuthInput } from 'presentat
 import { PageRoutes } from 'main/constants/page-routes'
 import { AddAccount } from 'domain/usecases/add-account'
 import { useForm, SubmitHandler } from  'react-hook-form'
+import { LocalStorageAdapter } from 'infra/cache'
+import { REACT_CHALLENGE } from 'presentation/modules/contexts/auth-context'
 
 type Props = {
   addAccount: AddAccount
+  storage: LocalStorageAdapter
 }
 
 type Inputs = {
@@ -15,16 +18,17 @@ type Inputs = {
   password: string
 };
 
-const SignUp: React.FC<Props> = ({ addAccount }: Props) => {
+const SignUp: React.FC<Props> = ({ addAccount, storage }: Props) => {
   const { register, handleSubmit } = useForm<Inputs>()
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      await addAccount.add({
+      const account = await addAccount.add({
         email: data.email,
         username: data.username,
         password: data.password
       })
+      storage.set(`${REACT_CHALLENGE}_account`, account)
     } catch (error) {
       console.log(error)
     }

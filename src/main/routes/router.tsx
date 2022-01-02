@@ -8,7 +8,7 @@ import {
   CreateJournalsPost 
 } from 'presentation/pages'
 import { PageRoutes } from 'main/constants/page-routes'
-import { MakeSignUp } from 'main/factories/pages/make-sign-up'
+import { MakeSignUp } from 'main/factories/pages'
 
 const Router: React.FC = () => {
   
