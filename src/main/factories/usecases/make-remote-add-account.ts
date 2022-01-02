@@ -1,7 +1,5 @@
 import { RemoteAddAccount } from "data/usecases/remote-add-account/remote-add-account";
 import { AddAccount } from "domain/usecases/add-account";
-import { AxiosHttpClient } from "infra/http/axios-http-client";
-import { makeApiUrl } from "../http/make-api-url";
+import { makeApiUrl, makeAxiosHttpClient } from "main/http";
 
-export const makeRemoteAddAccount = (): AddAccount => 
-  new RemoteAddAccount(makeApiUrl('/auth/signup'), new AxiosHttpClient())
+export const makeRemoteAddAccount = (): AddAccount => new RemoteAddAccount(makeApiUrl('/auth/signup'), makeAxiosHttpClient())
