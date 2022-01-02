@@ -2,7 +2,6 @@ import React from 'react'
 import { Box, Text } from "@chakra-ui/react"
 import { Entry as EntryProps } from 'domain/models/entry'
 
-
 const Entry: React.FC<EntryProps> = ({ title }) => {
   return (
     <Box 
