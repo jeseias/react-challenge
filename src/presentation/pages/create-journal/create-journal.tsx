@@ -1,13 +1,30 @@
 import React, { useState } from 'react'
 import { Box, Flex, Text,  } from "@chakra-ui/react"
 import { CustomButton, TextField, LogoSVG } from 'presentation/components'
+import { SaveJournal } from 'domain/usecases/save-journal'
 
-const CreateJournal: React.FC = () => {
+type Props = {
+  saveJournal: SaveJournal
+}
+
+const CreateJournal: React.FC<Props> = ({ saveJournal }: Props) => {
   const [name, setName] = useState('')
+
+  async function handleSaveJournal() {
+    try {
+      await saveJournal.save({ 
+        title: name,
+        type: 'public' 
+      })
+    } catch (error) {
+      console.error()
+    }
+  }
+
   return (
     <Flex p="3.2rem 2.8rem 3.209rem 2.8rem" minHeight="100%" alignItems="center" flexDir="column">
       <Box alignSelf="self-start" mb="11.411rem">
-        <LogoSVG />
+        <LogoSVG aria-label="company logo" />
       </Box>
       <Flex 
         w="26.109rem"
@@ -34,10 +51,10 @@ const CreateJournal: React.FC = () => {
         <Text fontSize="2.4rem" fontWeight="bold">{name}</Text>
       </Flex>
       <TextField 
-        placeholder="james bond"
+        placeholder="journal title"
         onChange={e => setName(e.target.value)}
       />
-      <CustomButton mt="4.2rem">Save journal</CustomButton>
+      <CustomButton mt="4.2rem" onClick={handleSaveJournal}>Save journal</CustomButton>
     </Flex>
   )
 }

@@ -21,7 +21,7 @@ const ButtonAdd: React.FC<Props & ButtonProps> = ({ children, to,...rest }) => {
         color="secondary.600"
         {...rest}
       > 
-        <AddSVG />
+        <AddSVG aria-label="plus icon"/>
         <Text ml=".8rem" fontWeight="500" fontSize="1.4rem">{children}</Text>
       </Button>
     </Link>

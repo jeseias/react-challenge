@@ -10,6 +10,7 @@ const TextField: React.FC<Props & InputProps & TextareaProps> = ({ textArea, ...
     <>
       {textArea ? 
         <Textarea
+          aria-label="textarea"
           display="block"
           bg="rgba(255, 255, 255, 0.12)"
           border=" 1px solid rgba(157, 164, 166, 0.07"
@@ -23,6 +24,7 @@ const TextField: React.FC<Props & InputProps & TextareaProps> = ({ textArea, ...
         />
       : (
         <Input 
+          aria-label="input"
           bg="rgba(255, 255, 255, 0.12)"
           border=" 1px solid rgba(157, 164, 166, 0.07"
           borderRadius=".4rem"
