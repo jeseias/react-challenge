@@ -17,4 +17,11 @@ describe(LinkText.name, () => {
     expect(text).toHaveStyle('font-size: 1.4rem')
     expect(text).not.toHaveStyle('font-weight: 600')
   })
+
+  it('Should render with bold text', () => {
+    makeSut({ to: 'notes/create', bold: true })
+    const text = screen.getByText('create note')
+    expect(text).toBeInTheDocument()
+    expect(text).toHaveStyle('font-weight: 600')
+  })
 })
