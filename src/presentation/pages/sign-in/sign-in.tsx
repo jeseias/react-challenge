@@ -2,8 +2,10 @@ import React from 'react'
 import { Box, Flex } from "@chakra-ui/react"
 import { LinkText, LogoSVG, AuthTitle, CustomButton, AuthInput } from 'presentation/components'
 import { PageRoutes } from 'main/constants/page-routes'
+import { useForm } from 'react-hook-form'
 
 const SignIn: React.FC = () => {
+  const {register} = useForm()
   return (
     <Box pt={["22.4rem"]}>
       <Box maxWidth="37.5rem" width="100%" m="0 auto" p="0 2.7rem 0 2.9rem">
@@ -15,9 +17,9 @@ const SignIn: React.FC = () => {
         <Box>
           <form>
             <Box mb="2.9rem">
-              <AuthInput label="Your username" />
+              <AuthInput label="Your username" register={register('username')} />
             </Box>
-            <AuthInput label="Your password" />
+            <AuthInput label="Your password" register={register('password')}/>
           </form>
         </Box>
         <Flex justifyContent="flex-end" mt="1.2rem">

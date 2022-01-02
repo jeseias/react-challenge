@@ -2,8 +2,31 @@ import React from 'react'
 import { Box, Flex } from "@chakra-ui/react"
 import { LinkText, LogoSVG, AuthTitle, CustomButton, AuthInput } from 'presentation/components'
 import { PageRoutes } from 'main/constants/page-routes'
+import { AddAccount } from 'domain/usecases/add-account'
+import { useForm, SubmitHandler } from  'react-hook-form'
 
-const SignUp: React.FC = () => {
+type Props = {
+  addAccount: AddAccount
+}
+
+type Inputs = {
+  username: string
+  email: string
+  password: string
+};
+
+const SignUp: React.FC<Props> = ({ addAccount }: Props) => {
+  const { register, handleSubmit } = useForm<Inputs>()
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data)
+    addAccount.add({
+      email: '',
+      username: '',
+      password: ''
+    })
+  }
+
   return (
     <Box pt={["22.4rem"]}>
       <Box maxWidth="37.5rem" width="100%" m="0 auto" p="0 2.7rem 0 2.9rem">
@@ -12,20 +35,20 @@ const SignUp: React.FC = () => {
           <AuthTitle>Sign Up</AuthTitle>
           <LinkText to={PageRoutes.SignIn} bold tiny>Already have an account</LinkText> 
         </Flex>
-        <Box>
-          <form>
-            <Box mb="2.9rem">
-              <AuthInput label="Define a username" />
-            </Box>
-            <Box mb="2.9rem">
-              <AuthInput label="Email (optional)" />
-            </Box>
-            <AuthInput label="Set your password" />
-          </form>
-        </Box> 
-        <Flex justifyContent="center" mt="4rem">
-          <CustomButton>Sign In</CustomButton>
-        </Flex>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Box>
+              <Box mb="2.9rem">
+                <AuthInput label="Define a username" register={register('username')} />
+              </Box>
+              <Box mb="2.9rem">
+                <AuthInput label="Email (optional)" register={register('email')} />
+              </Box>
+              <AuthInput label="Set your password" register={register('password')} />
+          </Box> 
+          <Flex justifyContent="center" mt="4rem">
+            <CustomButton type="submit">Sign In</CustomButton>
+          </Flex>
+        </form>
       </Box>
     </Box>
   )

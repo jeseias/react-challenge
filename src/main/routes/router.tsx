@@ -2,13 +2,13 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import {
   SignIn, 
-  SignUp, 
   JournalsList, 
   CreateJournal, 
   JournalPosts, 
   CreateJournalsPost 
 } from 'presentation/pages'
 import { PageRoutes } from 'main/constants/page-routes'
+import { MakeSignUp } from 'main/factories/pages/make-sign-up'
 
 const Router: React.FC = () => {
   
@@ -16,7 +16,7 @@ const Router: React.FC = () => {
     <Routes>
       <Route index element={<JournalsList />}/>
       <Route path={PageRoutes.SignIn} element={<SignIn />}/>
-      <Route path={PageRoutes.SignUp} element={<SignUp />}/>
+      <Route path={PageRoutes.SignUp} element={<MakeSignUp />}/>
       <Route path={PageRoutes.JournalsList} element={<JournalsList />} />
       <Route path={PageRoutes.CreateJournal} element={<CreateJournal />}/>
       <Route path={`${PageRoutes.JournalsPost}/:id`} element={<JournalPosts />}/>
