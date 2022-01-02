@@ -1,7 +1,6 @@
 import { Box, Input, InputProps, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
 
-
 type Props = {
   label: string
   register: any,
@@ -34,11 +33,12 @@ const AuthInput: React.FC<Props & InputProps> = ({ label, register, ...rest }) =
       </Text>
       <Input
         position="absolute"
+        display="inline-block"
         zIndex={1}
         bottom="0"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-        h="80%"
+        h="100%"
         fontSize="1.2rem"
-        p="2rem 1.2rem 1.2rem auto"
+        pt="1.8rem"
         border="none !Important"
         outline="none !Important"
         onFocus={() => setIsLabelVisible(false)}

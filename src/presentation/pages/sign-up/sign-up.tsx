@@ -18,13 +18,16 @@ type Inputs = {
 const SignUp: React.FC<Props> = ({ addAccount }: Props) => {
   const { register, handleSubmit } = useForm<Inputs>()
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
-    addAccount.add({
-      email: '',
-      username: '',
-      password: ''
-    })
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      await addAccount.add({
+        email: data.email,
+        username: data.username,
+        password: data.password
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

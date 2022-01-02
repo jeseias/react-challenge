@@ -2,17 +2,17 @@ import axios, { AxiosResponse } from "axios";
 import { HttpClient, HttpResponse, HttpRequest } from "data/protocols/http/http-client";
 
 export class AxiosHttpClient implements HttpClient {
-  async request(data: HttpRequest): Promise<HttpResponse> {
+  async request (data: HttpRequest): Promise<HttpResponse> {
     let axiosResponse: AxiosResponse
     try {
       axiosResponse = await axios.request({
         url: data.url,
+        method: data.method,
         data: data.body,
-        headers: data.headers,
-        method: data.method
+        headers: data.headers
       })
     } catch (error) {
-      axiosResponse = (error as any).response
+      axiosResponse = (error as any).response 
     }
     return {
       statusCode: axiosResponse.status,
