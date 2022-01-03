@@ -1,8 +1,15 @@
 import React, { } from 'react'
 import { Box, Flex } from "@chakra-ui/react"
 import { ChevronLeftSVG, CustomButton, TextField, LogoSVG, Title } from 'presentation/components'
+import { SaveEntry } from '../../../domain/usecases/save-entry'
+import { useParams } from 'react-router-dom'
 
-const CreateJournalsPost: React.FC = () => {
+type Props = {
+  saveEntry: SaveEntry
+}
+
+const CreateJournalsPost: React.FC<Props> = ({  }: Props) => {
+  const { title } = useParams()
   return (
     <Box p="3.2rem 2.8rem 3.209rem 2.8rem" h="100%">
       <LogoSVG />
@@ -10,7 +17,7 @@ const CreateJournalsPost: React.FC = () => {
         <Box position="relative" left="-1rem">
           <ChevronLeftSVG />
         </Box>
-        <Title>HTML</Title>
+        <Title>{title}</Title>
       </Flex>
       <form action="">
         <Box mb="2.8rem">
