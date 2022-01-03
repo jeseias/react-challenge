@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { Box, Flex, Text,  } from "@chakra-ui/react"
 import { CustomButton, TextField, LogoSVG } from 'presentation/components'
 import { SaveJournal } from 'domain/usecases/save-journal'
+import { useAuth } from 'presentation/modules/hooks'
+import { useNavigate } from 'react-router-dom'
+import { PageRoutes } from 'main/constants/page-routes'
 
 type Props = {
   saveJournal: SaveJournal
@@ -9,15 +12,21 @@ type Props = {
 
 const CreateJournal: React.FC<Props> = ({ saveJournal }: Props) => {
   const [name, setName] = useState('')
+  const { account } = useAuth()
+  const navigate = useNavigate()
 
   async function handleSaveJournal() {
     try {
-      await saveJournal.save({ 
-        title: name,
-        type: 'public' 
-      })
+      if (account?.user.id) {
+        await saveJournal.save({ 
+          title: name,
+          userId: account.user.id,
+          type: 'public' 
+        })
+        navigate(PageRoutes.JournalsList)
+      }
     } catch (error) {
-      console.error()
+      console.error(error)
     }
   }
 
@@ -39,7 +48,7 @@ const CreateJournal: React.FC<Props> = ({ saveJournal }: Props) => {
         mb="2.369rem"
       >
         <Box 
-          bg="light"
+          bg="light"  
           w="1.872rem"
           h="100%"
           position="absolute"

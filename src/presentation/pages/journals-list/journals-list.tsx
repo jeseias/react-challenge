@@ -17,15 +17,14 @@ const JournalsList = ({ loadJournals }: Props) => {
   const handleLoadJournals = async () => {
     try {
       const result = await loadJournals.load()
-      if (result) {
-        setJournals(result)
-      }
+      if (result) setJournals(result.journals)
     } catch (error) {
       console.log(error)
     }
   }
 
   useEffect(() => {
+    // console.log('the journals ',journals)
     handleLoadJournals()
   }, [])
   return (

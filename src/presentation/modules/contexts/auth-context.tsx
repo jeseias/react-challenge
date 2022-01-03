@@ -8,33 +8,44 @@ export const REACT_CHALLENGE_ACCOUNT = 'react_challenge_account'
 type Props = {
   isLoggedIn: boolean
   account: AccountModel
+  updateAccount: (account: AccountModel) => void 
 }
 
 export const AuthContext = React.createContext<Props>({
   account: null as any,
-  isLoggedIn: false
+  isLoggedIn: false,
+  updateAccount: () => {}
 })
 
 export const AuthProvider: React.FC = (props) => {
   const [isLogged, setIsLogged] = useState(true)
+  const [account, setAccount] = useState<AccountModel | null>(null)
   const navigate = useNavigate()
 
-  function getUser (): AccountModel {
+  const getUser = (): AccountModel => {
     const account = JSON.parse(localStorage.getItem(REACT_CHALLENGE_ACCOUNT) as string)
     return account
+  }
+
+  const updateAccount = (account: AccountModel): void => {
+    setAccount(account)
+    localStorage.setItem(REACT_CHALLENGE_ACCOUNT, JSON.stringify(account))
   }
 
   useEffect(() => {
     const account = getUser()
     setIsLogged(!!account)
     if (!account) {
-      navigate(PageRoutes.SignIn)
+      return navigate(PageRoutes.SignIn)
     }
+    setAccount(account)
   }, [])
 
   const value = useMemo(() => ({
     isLoggedIn: isLogged,
-  } as Props), [isLogged])
+    account,
+    updateAccount 
+  } as Props), [isLogged, account])
 
   return ( 
     <AuthContext.Provider value={value}>

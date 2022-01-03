@@ -5,5 +5,5 @@ export interface LoadJournals {
 }
 
 export namespace LoadJournals {
-  export type Model = Journal[]
+  export type Model = { journals: Journal[] }
 }

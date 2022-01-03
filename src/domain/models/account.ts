@@ -1,6 +1,6 @@
-import { User } from "./user";
+import { UserModel } from "./user";
 
 export type AccountModel = {
-  user: User,
+  user: UserModel
   token: string
 }

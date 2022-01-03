@@ -1,16 +1,17 @@
 import { Text, TextProps } from '@chakra-ui/react'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, To } from 'react-router-dom'
 
 type Props = {
-  to: string 
+  to: To 
+  linkState?:any
   bold?: boolean 
   tiny?: boolean
 }
 
-const LinkText: React.FC<Props & TextProps> = ({ children, to, bold, tiny, ...rest }) => {
+const LinkText: React.FC<Props & TextProps> = ({ children, to, linkState, bold, tiny, ...rest }) => {
   return (
-    <Link to={to}>
+    <Link to={to} state={linkState}>
       <Text 
         textDecoration="underline" 
         fontFamily="Montserrat"

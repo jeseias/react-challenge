@@ -4,18 +4,20 @@ import { LinkText, LogoSVG, AuthTitle, CustomButton, AuthInput } from 'presentat
 import { PageRoutes } from 'main/constants/page-routes'
 import { AddAccount } from 'domain/usecases/add-account'
 import { LocalStorageAdapter } from 'infra/cache'
-import { REACT_CHALLENGE_ACCOUNT } from 'presentation/modules/contexts/auth-context'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from 'presentation/modules/hooks'
 
 type Props = {
   addAccount: AddAccount
   storage: LocalStorageAdapter
 }
 
-const SignUp: React.FC<Props> = ({ addAccount, storage }: Props) => {
+const SignUp: React.FC<Props> = ({ addAccount }: Props) => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const { updateAccount } = useAuth()
 
   const navigate = useNavigate()
 
@@ -28,7 +30,7 @@ const SignUp: React.FC<Props> = ({ addAccount, storage }: Props) => {
       })
 
       if (account) {
-        storage.set(REACT_CHALLENGE_ACCOUNT, account)
+        updateAccount(account)
         navigate(PageRoutes.JournalsList)
       }
     } catch (error) {

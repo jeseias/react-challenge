@@ -16,7 +16,7 @@ export class RemoteSaveJournal implements SaveJournal {
     })
 
     switch (httpResponse.statusCode) {
-      case HttpStatusCode.ok: return httpResponse.body as RemoteSaveJournal.Model
+      case HttpStatusCode.created: return httpResponse.body as RemoteSaveJournal.Model
       case HttpStatusCode.badRequest: throw new UserDoesNotExistsError()
       default: throw new UnexpectedError()
     }
