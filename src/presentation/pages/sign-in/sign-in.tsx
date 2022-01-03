@@ -1,11 +1,45 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Flex } from "@chakra-ui/react"
 import { LinkText, LogoSVG, AuthTitle, CustomButton, AuthInput } from 'presentation/components'
 import { PageRoutes } from 'main/constants/page-routes'
+import { Authentication } from 'domain/usecases/authentication'
+import { LocalStorageAdapter } from 'infra/cache'
+import { REACT_CHALLENGE_ACCOUNT } from 'presentation/modules/contexts/auth-context'
+import { AccountModel } from 'domain/models/account'
+import { useNavigate } from 'react-router-dom'
 
-const SignIn: React.FC = () => {
+type Props = {
+  authentication: Authentication
+  storage: LocalStorageAdapter
+}
+
+const SignIn = ({ authentication, storage }: Props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
+
+  const handleFindUser = () => {
+    const account = storage.get(REACT_CHALLENGE_ACCOUNT) as AccountModel
+    if (account) {
+      navigate(PageRoutes.JournalsList)
+    }
+  }
+
+  const handleAuthentication = async () => {
+    try {
+      const account = await authentication.auth({
+        username, 
+        password
+      })
+      console.log(account)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    handleFindUser()
+  }, [])
 
   return (
     <Box pt={["22.4rem"]}>
@@ -16,18 +50,25 @@ const SignIn: React.FC = () => {
           <LinkText to={PageRoutes.SignUp} bold tiny>Sign up</LinkText> 
         </Flex>
         <Box>
-          <form>
-            <Box mb="2.9rem">
-              <AuthInput label="Your username" value={username} onChange={e => setUsername(e.target.value)} />
-            </Box>
-            <AuthInput label="Your password" value={password} onChange={e => setPassword(e.target.value)}  />
-          </form>
+          <Box mb="2.9rem">
+            <AuthInput 
+              label="Your username" 
+              value={username} 
+              onChange={e => setUsername(e.target.value)} 
+            />
+          </Box>
+          <AuthInput
+           label="Your password" 
+           type="password" 
+           value={password} 
+           onChange={e => setPassword(e.target.value)} 
+          />
         </Box>
         <Flex justifyContent="flex-end" mt="1.2rem">
           <LinkText to={PageRoutes.ForgotPassword} tiny>Forgot Password?</LinkText> 
         </Flex>
         <Flex justifyContent="center" mt="4rem">
-          <CustomButton>Sign In</CustomButton>
+          <CustomButton onClick={handleAuthentication}>Sign In</CustomButton>
         </Flex>
       </Box>
     </Box>

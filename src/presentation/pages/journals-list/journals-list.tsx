@@ -1,23 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Flex } from "@chakra-ui/react"
 import { ButtonAdd, LogoSVG } from 'presentation/components'
 import { NoJournals } from './no-journals'
 import { List } from './list'
 import { Journal } from 'domain/models/journal'
 import { PageRoutes } from 'main/constants/page-routes'
+import { LoadJournals } from 'domain/usecases/load-journals'
 
-const JournalsList: React.FC = () => {
-  const [journals] = useState<Journal[]>([
-    {
-      id: '1',
-      title: 'HTML_',
-      type: 'public',
-      entryIds: ['1', '2'],
-      userId: 'user1',
-      createdAt: new Date().toLocaleDateString(),
-      updatedAt: new Date().toLocaleDateString(),
+type Props = {
+  loadJournals: LoadJournals
+}
+
+const JournalsList = ({ loadJournals }: Props) => {
+  const [journals, setJournals] = useState<Journal[]>([])
+
+  const handleLoadJournals = async () => {
+    try {
+      const result = await loadJournals.load()
+      if (result) {
+        setJournals(result)
+      }
+    } catch (error) {
+      console.log(error)
     }
-  ])
+  }
+
+  useEffect(() => {
+    handleLoadJournals()
+  }, [])
   return (
     <Box p="3.2rem 2.8rem 3.209rem 2.8rem" h="100%">
       <Flex justifyContent="space-between" alignItems="center">

@@ -20,7 +20,7 @@ export const AuthProvider: React.FC = (props) => {
   const navigate = useNavigate()
 
   function getUser (): AccountModel {
-    const account = JSON.parse(localStorage.getItem(`${REACT_CHALLENGE_ACCOUNT}account`) as string)
+    const account = JSON.parse(localStorage.getItem(REACT_CHALLENGE_ACCOUNT) as string)
     return account
   }
 

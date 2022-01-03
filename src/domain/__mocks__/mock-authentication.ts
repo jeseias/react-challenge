@@ -3,7 +3,7 @@ import { mockAccountModel } from "./mock-account"
 import * as faker from 'faker'
 
 export const mockAuthenticationParams = (): Authentication.Params => ({
-  email: faker.internet.email(),
+  username: faker.internet.userName(),
   password: faker.internet.password()
 })
 
