@@ -4,7 +4,8 @@ import { mockAccountModel } from "domain/__mocks__/mock-account";
 import { LocalStorageAdapter } from "infra/cache";
 import { __render } from "presentation/modules/test-utils";
 import SignUp from './sign-up'
-import { RenderResult, screen } from '@testing-library/react';
+import { fireEvent, RenderResult, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 class AddAccountSpy implements AddAccount {
   account = mockAccountModel()
@@ -64,5 +65,23 @@ describe('SignUp Page Page', () => {
     expect(screen.getByTestId('username-input')).toBeInTheDocument()
     expect(screen.getByTestId('email-input')).toBeInTheDocument()
     expect(screen.getByTestId('password-input')).toBeInTheDocument()
+  })
+
+  it('Should call addAccount.add with correct values', () => {
+    const { sut, addAccountSpy } =  makeSut()
+    sut()
+
+    userEvent.type(screen.getByTestId('username-input'), 'any_username')
+    userEvent.type(screen.getByTestId('email-input'), 'any_email')
+    userEvent.type(screen.getByTestId('password-input'), 'any_password')
+
+    fireEvent.click(screen.getByText('Sign In'))
+
+    expect(addAccountSpy.callCounts).toBe(1)
+    expect(addAccountSpy.params).toEqual({
+      username: 'any_username',
+      email: 'any_email',
+      password: 'any_password'
+    })
   })
 });

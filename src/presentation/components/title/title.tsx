@@ -8,6 +8,7 @@ const Title: React.FC<TextProps> = ({ children, ...rest }) => {
       fontWeight="bold"
       fontStyle="normal"
       lineHeight="2.8rem"
+      fontFamily="Montserrat"
       color="black" 
       {...rest}
     >

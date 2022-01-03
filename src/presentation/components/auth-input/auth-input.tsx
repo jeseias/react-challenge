@@ -3,10 +3,9 @@ import React, { useState } from 'react'
 
 type Props = {
   label: string
-  register: any,
 }
 
-const AuthInput: React.FC<Props & InputProps> = ({ label, register, ...rest }) => {
+const AuthInput: React.FC<Props & InputProps> = ({ label, ...rest }) => {
   const [isLabelVisible, setIsLabelVisible] = useState(true)
 
   return (
@@ -28,6 +27,8 @@ const AuthInput: React.FC<Props & InputProps> = ({ label, register, ...rest }) =
         fontSize={isLabelVisible ? '1.2rem' : '.9rem'}
         color={isLabelVisible ? 'secondary.500' : 'grey'}
         fontWeight={isLabelVisible ? '600' : 'normal'}
+        fontFamily="Montserrat"
+        lineHeight={isLabelVisible ? '1.97rem' : '1.463rem'}
       >
         {label}                                                                                                                                                                                                                                 
       </Text>
@@ -38,12 +39,14 @@ const AuthInput: React.FC<Props & InputProps> = ({ label, register, ...rest }) =
         bottom="0"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
         h="100%"
         fontSize="1.2rem"
+        lineHeight="1.463rem"
+        fontFamily="Montserrat"
         pt="1.8rem"
         border="none !Important"
         outline="none !Important"
+        color="#834825"
         onFocus={() => setIsLabelVisible(false)}
         bg="transparent"
-        {...register}
         {...rest}
       />
     </Box>

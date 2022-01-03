@@ -17,7 +17,7 @@ export class RemoteAddAccount implements AddAccount {
     })
 
     switch (httpResponse.statusCode) {
-      case HttpStatusCode.ok: return httpResponse.body as AddAccount.Model
+      case HttpStatusCode.created: return httpResponse.body as AddAccount.Model
       case HttpStatusCode.badRequest: throw new UserAlreadyExistsError()
       default: throw new UnexpectedError()
     }

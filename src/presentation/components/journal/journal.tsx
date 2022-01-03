@@ -27,7 +27,7 @@ const Journal: React.FC<JournalProps> = ({ title }) => {
         h="100%"
         w="1.1rem"
       />
-      <Text fontSize="2.4rem">{title}</Text>
+      <Text fontSize="2.4rem" fontFamily="Abhaya Libre" lineHeight="2.8rem">{title}</Text>
     </Flex>
   )
 }

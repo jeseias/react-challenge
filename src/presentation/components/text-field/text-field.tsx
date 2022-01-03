@@ -20,7 +20,6 @@ const TextField: React.FC<Props & InputProps & TextareaProps> = ({ textArea, reg
           fontSize="1.2rem"
           fontWeight="600"
           lineHeight="15px"
-          color="secondary.600"
           {...register}
           {...rest}
         />
@@ -34,7 +33,7 @@ const TextField: React.FC<Props & InputProps & TextareaProps> = ({ textArea, reg
           fontSize="1.2rem"
           fontWeight="600"
           lineHeight="15px"
-          color="secondary.600"
+          color="red !important"
           {...register}
           {...rest}
         />

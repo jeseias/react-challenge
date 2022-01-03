@@ -48,11 +48,22 @@ const CreateJournal: React.FC<Props> = ({ saveJournal }: Props) => {
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
           borderRadius="2px 0px 0px 2px"
         />
-        <Text fontSize="2.4rem" fontWeight="bold">{name}</Text>
+        <Text 
+          fontSize="2.4rem" 
+          fontWeight="bold" 
+          fontFamily="Abhaya Libre" 
+          lineHeight="2.8rem" 
+          maxWidth="85%" 
+        >
+          {name}
+        </Text>
       </Flex>
       <TextField 
         placeholder="journal title"
         onChange={e => setName(e.target.value)}
+        fontSize="1.2rem"
+        lineHeight="1.5rem"
+        color="#804627 !important"
       />
       <CustomButton mt="4.2rem" onClick={handleSaveJournal}>Save journal</CustomButton>
     </Flex>

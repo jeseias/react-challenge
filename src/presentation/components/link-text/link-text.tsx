@@ -13,6 +13,8 @@ const LinkText: React.FC<Props & TextProps> = ({ children, to, bold, tiny, ...re
     <Link to={to}>
       <Text 
         textDecoration="underline" 
+        fontFamily="Montserrat"
+        lineHeight="1.5rem"
         fontWeight={bold ? '600' : 'normal'} 
         color="secondary.500"
         fontSize={tiny ? '1.2rem' : '1.4rem'}

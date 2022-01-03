@@ -7,6 +7,8 @@ const AuthTitle: React.FC<TextProps> = ({ children, ...rest }) => {
       color="secondary.500" 
       fontSize={['3.2rem']} 
       fontStyle="normal" 
+      fontFamily="Montserrat"
+      lineHeight="3.001rem"
       {...rest}
     >
       {children}

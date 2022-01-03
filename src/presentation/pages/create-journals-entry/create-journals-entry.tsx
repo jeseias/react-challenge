@@ -15,7 +15,7 @@ type LocationProps = {
   }
 }
 
-const CreateJournalsPost: React.FC<Props> = ({ saveEntry }: Props) => {
+const CreateJournalsEntry: React.FC<Props> = ({ saveEntry }: Props) => {
   const { state: { id, title } } = useLocation() as LocationProps
   const [name, setName] = useState('')
   const [content, setContent] = useState('')
@@ -49,4 +49,4 @@ const CreateJournalsPost: React.FC<Props> = ({ saveEntry }: Props) => {
   )
 }
 
-export default CreateJournalsPost
+export default CreateJournalsEntry

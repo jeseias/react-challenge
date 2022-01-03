@@ -14,6 +14,7 @@ export const EntriesList: React.FC<Props> = ({ entries }) => {
       gridTemplateRows="repeat(auto-fill, 17.8rem)" 
       gap="2rem" 
       mt="1.9rem"
+      aria-label="entries list"
     >
       {entries.map(entry => <Entry key={entry.id} {...entry} />)}
     </Grid>

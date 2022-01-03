@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
-import CreateJournalsPost from './create-journals-post'
+import CreateJournalsEntry from './create-journals-entry'
 import { SaveEntry } from 'domain/usecases/save-entry'
 import userEvent from '@testing-library/user-event'
 import { mockEntryModel } from 'domain/__mocks__/mock-entries'
@@ -32,13 +32,13 @@ type SutTypes = {
 
 const makeSut = (): SutTypes => {
   const saveEntrySpy = new SaveEntrySpy()
-  render(<CreateJournalsPost saveEntry={saveEntrySpy} />)
+  render(<CreateJournalsEntry saveEntry={saveEntrySpy} />)
   return {
     saveEntrySpy
   }
 }
 
-describe('CreateJournalsPost Page', () => {
+describe('CreateJournalsEntry Page', () => {
   it('Should render as expected', () => {
     makeSut()
     expect(screen.getByText('Journal Title HTML')).toBeInTheDocument()
