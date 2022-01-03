@@ -3,9 +3,10 @@ import { Input,  InputProps, Textarea, TextareaProps } from '@chakra-ui/react'
 
 type Props = {
   textArea?: boolean
+  register?: any,
 }
 
-const TextField: React.FC<Props & InputProps & TextareaProps> = ({ textArea, ...rest }) => {
+const TextField: React.FC<Props & InputProps & TextareaProps> = ({ textArea, register,...rest }) => {
   return (
     <>
       {textArea ? 
@@ -20,6 +21,7 @@ const TextField: React.FC<Props & InputProps & TextareaProps> = ({ textArea, ...
           fontWeight="600"
           lineHeight="15px"
           color="secondary.600"
+          {...register}
           {...rest}
         />
       : (
@@ -33,6 +35,7 @@ const TextField: React.FC<Props & InputProps & TextareaProps> = ({ textArea, ...
           fontWeight="600"
           lineHeight="15px"
           color="secondary.600"
+          {...register}
           {...rest}
         />
       )}

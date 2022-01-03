@@ -1,38 +1,40 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import CreateJournalsPost from './create-journals-post'
-import { SaveJournal } from 'domain/usecases/save-journal'
-import { mockSaveJournalModel } from 'domain/__mocks__/mock-journal'
 import { SaveEntry } from 'domain/usecases/save-entry'
+import userEvent from '@testing-library/user-event'
+import { mockEntryModel } from 'domain/__mocks__/mock-entries'
 
 jest.mock('react-router-dom', () => ({
-  useParams: jest.fn().mockReturnValue({
-    title: 'Journal Title HTML'
+  useLocation: jest.fn().mockReturnValue({
+    state: {
+      id: 'journal2',
+      title: 'Journal Title HTML'
+    }
   })
 }))
 
-class CreateJournalsPostSpy implements SaveEntry {
-  journal = mockSaveJournalModel()
-  params: SaveJournal.Params
+class SaveEntrySpy implements SaveEntry {
+  entry = mockEntryModel()
+  params: SaveEntry.Params
   callsCount = 0
 
   async save(params: SaveEntry.Params): Promise<SaveEntry.Model> {
     this.params = params
     this.callsCount++
-    return this.journal
+    return this.entry
   }
 }
 
 type SutTypes = {
-  createJournalsPostSpy: CreateJournalsPostSpy
+  saveEntrySpy: SaveEntrySpy
 }
 
 const makeSut = (): SutTypes => {
-  const createJournalsPostSpy = new CreateJournalsPostSpy()
-  render(<CreateJournalsPost saveEntry={createJournalsPostSpy} />)
-
+  const saveEntrySpy = new SaveEntrySpy()
+  render(<CreateJournalsPost saveEntry={saveEntrySpy} />)
   return {
-    createJournalsPostSpy
+    saveEntrySpy
   }
 }
 
@@ -41,23 +43,26 @@ describe('CreateJournalsPost Page', () => {
     makeSut()
     expect(screen.getByText('Journal Title HTML')).toBeInTheDocument()
     expect(screen.getByPlaceholderText('title')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('Write your note')).toBeInTheDocument()
     expect(screen.getByText('Save note')).toBeInTheDocument()
   })
 
-  // it('Should call saveJournal.save with correct values', () => {
-  //   const { createJournalsPostSpy } = makeSut()
-  //   userEvent.type(screen.getByPlaceholderText('journal title'), 'HTML_')
-  //   fireEvent.click(screen.getByText('Save note'))
-  //   expect(createJournalsPostSpy.params).toEqual({
-  //     title: 'HTML_',
-  //     type: 'public'
-  //   })
-  // })
+  it('Should call saveEntry.save with correct values', () => {
+    const { saveEntrySpy } = makeSut()
+    userEvent.type(screen.getByPlaceholderText('title'), 'The article element')
+    userEvent.type(screen.getByPlaceholderText('Write your note'), 'The article element content')
+    fireEvent.click(screen.getByText('Save note'))
+    expect(saveEntrySpy.params).toEqual({
+      title: 'The article element',
+      content: 'The article element content',
+      journalId: 'journal2'
+    })
+  })
 
 
   // it('Should call saveJournal.save only once', () => {
-  //   const { createJournalsPostSpy } = makeSut()
+  //   const { saveEntrySpy } = makeSut()
   //   fireEvent.click(screen.getByText('Save journal'))
-  //   expect(createJournalsPostSpy.callsCount).toEqual(1)
+  //   expect(saveEntrySpy.callsCount).toEqual(1)
   // })
 });
