@@ -3,11 +3,11 @@ import { Route, Routes } from 'react-router-dom'
 import {
   SignIn, 
   JournalsList, 
-  CreateJournalsPost 
 } from 'presentation/pages'
 import { PageRoutes } from 'main/constants/page-routes'
 import { MakeCreateJournal, MakeSignUp } from 'main/factories/pages'
 import { MakeJournalEntries } from 'main/factories/pages/make-journal-entries-factory'
+import { MakeCreateJournalsEntry } from 'main/factories/pages/make-create-journals-entry-factory'
 
 const Router: React.FC = () => {
   
@@ -19,7 +19,7 @@ const Router: React.FC = () => {
       <Route path={PageRoutes.JournalsList} element={<JournalsList />} />
       <Route path={PageRoutes.CreateJournal} element={<MakeCreateJournal />}/>
       <Route path={`${PageRoutes.JournalsPost}/:id`} element={<MakeJournalEntries />}/>
-      <Route path={`${PageRoutes.JournalsPost}/:id/create`} element={<CreateJournalsPost />}/>
+      <Route path={`${PageRoutes.JournalsPost}/:id/create`} element={<MakeCreateJournalsEntry />}/>
     </Routes>
   )
 }
