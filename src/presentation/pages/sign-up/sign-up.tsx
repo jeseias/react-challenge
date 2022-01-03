@@ -45,12 +45,12 @@ const SignUp: React.FC<Props> = ({ addAccount, storage }: Props) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box>
               <Box mb="2.9rem">
-                <AuthInput label="Define a username" register={register('username')} />
+                <AuthInput label="Define a username" register={register('username')} data-testid="username-input"/>
               </Box>
               <Box mb="2.9rem">
-                <AuthInput label="Email (optional)" register={register('email')} />
+                <AuthInput label="Email (optional)" register={register('email')} data-testid="email-input" />
               </Box>
-              <AuthInput label="Set your password" register={register('password')} />
+              <AuthInput label="Set your password" register={register('password')} data-testid="password-input" />
           </Box> 
           <Flex justifyContent="center" mt="4rem">
             <CustomButton type="submit">Sign In</CustomButton>
