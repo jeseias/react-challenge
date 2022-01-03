@@ -60,9 +60,9 @@ describe('CreateJournalsPost Page', () => {
   })
 
 
-  // it('Should call saveJournal.save only once', () => {
-  //   const { saveEntrySpy } = makeSut()
-  //   fireEvent.click(screen.getByText('Save journal'))
-  //   expect(saveEntrySpy.callsCount).toEqual(1)
-  // })
+  it('Should call saveEntry.save only once', () => {
+    const { saveEntrySpy } = makeSut()
+    fireEvent.click(screen.getByText('Save note'))
+    expect(saveEntrySpy.callsCount).toEqual(1)
+  })
 });
