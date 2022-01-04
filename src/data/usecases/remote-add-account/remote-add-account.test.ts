@@ -23,24 +23,18 @@ describe('RemoteAddAccount', () => {
   it('Should call HttpClient with correct values', async () => {
     const url = faker.internet.url()
     const { sut, httpClientSpy } = makeSut(url)
-    const requestSpy = jest.spyOn(httpClientSpy, 'request')
     const user = mockAddAccountParams()
-    await sut.add(user)
-    expect(requestSpy).toHaveBeenCalledWith({
-      url,
-      method: 'post',
-      body: user
-    })
+    await sut.add(user) 
     expect(httpClientSpy.url).toBe(url)
     expect(httpClientSpy.method).toBe('post')
     expect(httpClientSpy.body).toBe(user)
   })
 
-  it('Should return AddAccount.Model if HttpClient returns 200', async () => {
-    const {sut,httpClientSpy} = makeSut()
+  it('Should return AddAccount.Model if HttpClient returns 201', async () => {
+    const { sut, httpClientSpy } = makeSut()
     const httpResult = mockAddAccountModel()
     httpClientSpy.response = {
-      statusCode: HttpStatusCode.ok,
+      statusCode: HttpStatusCode.created,
       body: httpResult
     }
     const account = await sut.add(mockAddAccountParams())

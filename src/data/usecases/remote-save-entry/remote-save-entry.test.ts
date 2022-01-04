@@ -2,7 +2,7 @@ import { HttpClientSpy } from "data/protocols/http/__mocks__/mock-http";
 import { SaveEntry } from "domain/usecases/save-entry";
 import { RemoteSaveEntry } from "./remote-save-entry";
 import * as faker from 'faker'
-import { mockEntryModel, mockSaveEntryParams } from "domain/__mocks__/mock-entries";
+import { mockSaveEntryParams, mockSaveEntryReturnModel } from "domain/__mocks__/mock-entries";
 import { HttpStatusCode } from "data/protocols/http/http-client";
 import { FailInToSave } from "domain/errors";
 
@@ -32,9 +32,9 @@ describe('RemoteSaveEntry', () => {
 
   it('Should returns RemoteSaveEntry.Model if HttpClient returns 200', async () => {
     const {sut, httpClientSpy} = makeSut()
-    const httpResult = mockEntryModel()
+    const httpResult = mockSaveEntryReturnModel()
     httpClientSpy.response = {
-      statusCode: HttpStatusCode.ok,
+      statusCode: HttpStatusCode.created,
       body: httpResult
     }
     const journal = await sut.save(mockSaveEntryParams())

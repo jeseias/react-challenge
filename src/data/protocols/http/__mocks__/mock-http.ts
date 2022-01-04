@@ -14,7 +14,7 @@ export class HttpClientSpy<R = any> implements HttpClient<R> {
   body?: any
   headers?: any
   response: HttpResponse<R> = {
-    statusCode: HttpStatusCode.ok
+    statusCode: HttpStatusCode.created
   }
 
   async request (data: HttpRequest): Promise<HttpResponse<R>> {

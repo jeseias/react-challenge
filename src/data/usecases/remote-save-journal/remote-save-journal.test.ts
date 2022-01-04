@@ -20,11 +20,14 @@ const makeSut = (url: string = faker.internet.url()): SutTypes => {
   }
 }
 describe('RemoteSaveJournal', () => {
-  it('Should call HttpClient with correct values', async () => {
+  it.only('Should call HttpClient with correct values', async () => {
     const url = faker.internet.url()
-    const {sut, httpClientSpy} = makeSut(url)
+    const { sut, httpClientSpy } = makeSut(url)
     const params = mockSaveJournalParams()
     await sut.save(params)
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.created
+    }
     expect(httpClientSpy.url).toBe(url)
     expect(httpClientSpy.method).toBe('post')
     expect(httpClientSpy.body).toBe(params)
