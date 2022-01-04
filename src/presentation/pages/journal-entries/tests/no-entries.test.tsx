@@ -1,7 +1,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import NoEntries from '../no-entries'
-import { __render } from 'presentation/modules/test-utils';
+import { renderWithRouter } from 'presentation/modules/test-utils';
 
 jest.mock('react-router-dom', () => ({
   useLocation: jest.fn().mockReturnValue({
@@ -12,7 +12,7 @@ jest.mock('react-router-dom', () => ({
   })
 }))
 
-const makeSut = () => __render(() => <NoEntries  />)
+const makeSut = () => renderWithRouter(<NoEntries  />)
 
 describe('EntriesList Component', () => {
   it('Should render as expected', () => {

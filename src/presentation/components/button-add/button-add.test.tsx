@@ -1,9 +1,9 @@
 import {  screen } from '@testing-library/react'
-import { __render } from 'presentation/modules/test-utils'
+import { renderWithRouter } from 'presentation/modules/test-utils'
 import React from 'react'
 import ButtonAdd from './button-add'
 
-const makeSut = () => __render(() =>
+const makeSut = () => renderWithRouter(
   <ButtonAdd to="journal/create">
     Add Journal
   </ButtonAdd>

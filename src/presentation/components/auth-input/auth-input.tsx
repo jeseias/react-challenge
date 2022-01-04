@@ -44,7 +44,7 @@ const AuthInput: React.FC<Props & InputProps> = ({ label, ...rest }) => {
         pt="1.8rem"
         border="none !Important"
         focusBorderColor="none"
-        color="#834825"
+        color="primary.600"
         onFocus={() => setIsLabelVisible(false)}
         bg="transparent"
         {...rest}

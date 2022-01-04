@@ -1,9 +1,9 @@
 import {  screen } from '@testing-library/react'
-import { __render } from 'presentation/modules/test-utils'
+import { renderWithRouter } from 'presentation/modules/test-utils'
 import React from 'react'
 import LinkText from './link-text'
 
-const makeSut = (props?: any) => __render(() =>
+const makeSut = (props?: any) => renderWithRouter(
   <LinkText {...props}>
     create note
   </LinkText>

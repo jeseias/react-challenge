@@ -1,19 +1,19 @@
-import { render, screen } from '@testing-library/react'
-import { Journal as JournalProps } from 'domain/models/journal'
+import { screen } from '@testing-library/react'
+import { Journal as JournalProps } from 'domain/models'
+import { renderWithRouter } from 'presentation/modules/test-utils'
 import React from 'react'
 import Journal from './journal'
 
-const props =  {
-  title: 'Journal title'
+const props = {
+  title: 'journal title'
 } as JournalProps
 
-const makeSut = () => render(
-  <Journal {...props} />
-)
+const makeSut = () => renderWithRouter(<Journal {...props} />)
 
-describe(Journal.name, () => {
-  it('Should render children', () => {
+describe('Journal Component', () => {
+  it('Should render as expected', () => {
     makeSut()
-    expect(screen.getByText('Journal title')).toBeInTheDocument()
-  })
-})
+    expect(screen.getByLabelText('journal')).toBeInTheDocument()
+    expect(screen.getByText('journal title')).toBeInTheDocument()
+  }) 
+});

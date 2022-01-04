@@ -8,7 +8,8 @@ const Journal: React.FC<JournalProps> = ({ title, id }) => {
   const navigate = useNavigate()
   const { userId } = useParams()
   return (
-    <Flex 
+    <Flex
+      aria-label="journal" 
       justifyContent="center" 
       alignItems="center" 
       position="relative" 

@@ -2,7 +2,7 @@ import React from 'react'
 import { AddAccount } from "domain/usecases/add-account";
 import { mockAccountModel } from "domain/__mocks__/mock-account";
 import { LocalStorageAdapter } from "infra/cache";
-import { __render } from "presentation/modules/test-utils";
+import { renderWithRouter } from "presentation/modules/test-utils";
 import SignUp from './sign-up'
 import { fireEvent, RenderResult, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -42,7 +42,7 @@ type SutTypes = {
 const makeSut = (): SutTypes => {
   const addAccountSpy = new AddAccountSpy()
   const storageSpy = new StorageSpy()
-  const sut = () => __render(() => <SignUp addAccount={addAccountSpy} storage={storageSpy} />)
+  const sut = () => renderWithRouter(<SignUp addAccount={addAccountSpy} storage={storageSpy} />)
 
   return {
     sut, 

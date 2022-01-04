@@ -3,7 +3,7 @@ import React from 'react'
 import { RenderResult, screen } from '@testing-library/react'
 import JournalEntries from '../journal-entries'
 import { LoadEntries } from 'domain/usecases/load-entries';
-import { __render } from 'presentation/modules/test-utils';
+import { renderWithRouter } from 'presentation/modules/test-utils';
 import { act } from 'react-dom/test-utils';
 
 class LoadEntriesSpy implements LoadEntries {
@@ -27,7 +27,7 @@ type SutTypes = {
 
 const makeSut = (): SutTypes => {
   const loadEntriesSpy = new LoadEntriesSpy()
-  const sut = () => __render(() => <JournalEntries loadEntries={loadEntriesSpy} />)
+  const sut = () => renderWithRouter(<JournalEntries loadEntries={loadEntriesSpy} />)
   return {
     loadEntriesSpy,
     sut
