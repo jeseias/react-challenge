@@ -1,4 +1,5 @@
 import { Entry } from "domain/models/entry"
+import { Journal } from "domain/models/journal"
 
 export interface SaveEntry {
   save(params: SaveEntry.Params): Promise<SaveEntry.Model>
@@ -11,5 +12,8 @@ export namespace SaveEntry {
     journalId?: string;
   }
 
-  export type Model = Entry
+  export type Model = {
+    entry: Entry 
+    journal: Journal
+  }
 }

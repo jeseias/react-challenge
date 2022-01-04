@@ -23,12 +23,11 @@ const CreateJournalsEntry: React.FC<Props> = ({ saveEntry }: Props) => {
 
   const handleSaveEntry = async () => {
     try {
-      const entry = await saveEntry.save({
+      const result = await saveEntry.save({
         title: name,
         content: content,
       })
-      console.log(entry)
-      if (entry) navigate(`/journals/${userId}/entries/${entryId}`)
+      if (result.entry) navigate(`/journals/${userId}/entries/${entryId}`, { state: { title } })
     } catch (error) {
       console.error(error)
     }
