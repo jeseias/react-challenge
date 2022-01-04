@@ -24,7 +24,6 @@ const JournalsList = ({ loadJournals }: Props) => {
   }
 
   useEffect(() => {
-    // console.log('the journals ',journals)
     handleLoadJournals()
   }, [])
   return (
@@ -33,7 +32,7 @@ const JournalsList = ({ loadJournals }: Props) => {
         <LogoSVG />
         {journals[0] && <ButtonAdd to={PageRoutes.CreateJournal}>Add Journal</ButtonAdd>}
       </Flex>
-      {journals[0] ? (<List  journals={journals} />) : <NoJournals />}
+      {journals[0] ? (<List journals={journals} />) : <NoJournals />}
     </Box>
   )
 }

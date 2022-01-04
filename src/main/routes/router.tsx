@@ -18,10 +18,10 @@ const Router: React.FC = () => {
       <Route index element={<MakeJournalsList />}/>
       <Route path={PageRoutes.SignIn} element={<MakeSignIn />}/>
       <Route path={PageRoutes.SignUp} element={<MakeSignUp />}/>
-      <Route path={PageRoutes.JournalsList} element={<MakeJournalsList />} />
-      <Route path={PageRoutes.CreateJournal} element={<MakeCreateJournal />}/>
-      <Route path={`${PageRoutes.JournalsPost}/:id`} element={<MakeJournalEntries />}/>
-      <Route path={`${PageRoutes.JournalsPost}/:id/create`} element={<MakeCreateJournalsEntry />}/>
+      <Route path={`${PageRoutes.JournalsList}/:id`} element={<MakeJournalsList />} />
+      <Route path={`${PageRoutes.Journals}/:id/create`} element={<MakeCreateJournal />}/>
+      <Route path={`${PageRoutes.Journals}/:id/entries/:entryId`} element={<MakeJournalEntries />}/>
+      <Route path={`journals/:id/entries/:entryId/create`} element={<MakeCreateJournalsEntry />}/>
     </Routes>
   )
 }

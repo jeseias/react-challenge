@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Box, Flex } from "@chakra-ui/react"
 import { ChevronLeftSVG, CustomButton, TextField, LogoSVG, Title } from 'presentation/components'
 import { SaveEntry } from '../../../domain/usecases/save-entry'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 type Props = {
   saveEntry: SaveEntry
@@ -10,27 +10,29 @@ type Props = {
 
 type LocationProps = {
   state: {
-    id: string 
     title: string
   }
 }
 
 const CreateJournalsEntry: React.FC<Props> = ({ saveEntry }: Props) => {
-  const { state: { id, title } } = useLocation() as LocationProps
+  const { state: { title } } = useLocation() as LocationProps
+  const { id } = useParams()
   const [name, setName] = useState('')
   const [content, setContent] = useState('')
 
   const handleSaveEntry = async () => {
     try {
-      await saveEntry.save({
+      const entry = await saveEntry.save({
         title: name,
         content: content,
         journalId: id
       })
+      console.log(entry)
     } catch (error) {
       console.error(error)
     }
   }
+  
   return (
     <Box p="3.2rem 2.8rem 3.209rem 2.8rem" h="100%">
       <LogoSVG />

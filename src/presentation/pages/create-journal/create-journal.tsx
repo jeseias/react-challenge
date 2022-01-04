@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { Box, Flex, Text,  } from "@chakra-ui/react"
 import { CustomButton, TextField, LogoSVG } from 'presentation/components'
 import { SaveJournal } from 'domain/usecases/save-journal'
-import { useAuth } from 'presentation/modules/hooks'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { PageRoutes } from 'main/constants/page-routes'
 
 type Props = {
@@ -12,19 +11,17 @@ type Props = {
 
 const CreateJournal: React.FC<Props> = ({ saveJournal }: Props) => {
   const [name, setName] = useState('')
-  const { account } = useAuth()
+  const { id } = useParams() as { id: string }
   const navigate = useNavigate()
 
   async function handleSaveJournal() {
     try {
-      if (account?.user.id) {
         await saveJournal.save({ 
           title: name,
-          userId: account.user.id,
+          userId: id,
           type: 'public' 
         })
-        navigate(PageRoutes.JournalsList)
-      }
+        navigate(`${PageRoutes.Journals}/${id}`)
     } catch (error) {
       console.error(error)
     }

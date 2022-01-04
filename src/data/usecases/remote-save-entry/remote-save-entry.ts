@@ -16,7 +16,7 @@ export class RemoteSaveEntry implements SaveEntry {
     })
 
     switch (httpResponse.statusCode) {
-      case HttpStatusCode.ok: return httpResponse.body as RemoteSaveEntry.Model
+      case HttpStatusCode.created: return httpResponse.body as RemoteSaveEntry.Model
       case HttpStatusCode.badRequest: throw new FailInToSave('entry')
       default: throw new UnexpectedError()
     }

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Box, Flex } from "@chakra-ui/react"
 import { LinkText, LogoSVG, AuthTitle, CustomButton, AuthInput } from 'presentation/components'
 import { PageRoutes } from 'main/constants/page-routes'
 import { Authentication } from 'domain/usecases/authentication'
 import { LocalStorageAdapter } from 'infra/cache'
 import { REACT_CHALLENGE_ACCOUNT } from 'presentation/modules/contexts/auth-context'
-import { AccountModel } from 'domain/models/account'
 import { useNavigate } from 'react-router-dom'
 
 type Props = {
@@ -18,28 +17,20 @@ const SignIn = ({ authentication, storage }: Props) => {
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
-  const handleFindUser = () => {
-    const account = storage.get(REACT_CHALLENGE_ACCOUNT) as AccountModel
-    if (account) {
-      navigate(PageRoutes.JournalsList)
-    }
-  }
-
   const handleAuthentication = async () => {
     try {
       const account = await authentication.auth({
         username, 
         password
       })
-      console.log(account)
+      if (account.token) {
+        storage.set(REACT_CHALLENGE_ACCOUNT, account)
+        navigate(`${PageRoutes.JournalsList}/${account.user.id}`)
+      }
     } catch (error) {
       console.error(error)
     }
   }
-
-  useEffect(() => {
-    handleFindUser()
-  }, [])
 
   return (
     <Box pt={["22.4rem"]}>

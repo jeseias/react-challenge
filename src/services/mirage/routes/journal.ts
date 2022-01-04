@@ -49,6 +49,7 @@ export const addEntry = (
       createdAt: now,
       updatedAt: now,
     });
+    console.log('mirage the entry',entry)
     journal.update({
       ...journal.attrs,
       updatedAt: now,

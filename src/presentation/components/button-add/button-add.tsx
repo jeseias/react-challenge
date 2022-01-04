@@ -5,11 +5,12 @@ import { AddSVG } from '../svgs'
 
 type Props = {
   to: string
+  state?: any
 }
 
-const ButtonAdd: React.FC<Props & ButtonProps> = ({ children, to,...rest }) => {
+const ButtonAdd: React.FC<Props & ButtonProps> = ({ children, to, state, ...rest }) => {
   return (
-    <Link to={to}>
+    <Link to={to} state={state}>
       <Button 
         h="4rem" 
         borderRadius="2.4rem" 

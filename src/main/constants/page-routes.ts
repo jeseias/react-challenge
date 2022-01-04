@@ -2,8 +2,9 @@ export enum PageRoutes {
   SignIn = '/sign-in',
   SignUp = '/sign-up',
   ForgotPassword = '/forgot-password',
+  Journals = '/journals',
   JournalsList = '/journals',
   CreateJournal = '/journals/create',
-  JournalsPost = '/journals/posts',
-  CreateJournalPost = 'journals/posts/create',
+  JournalEntries = '/journals/entries',
+  CreateJournalPost = 'journals/entries/create',
 }

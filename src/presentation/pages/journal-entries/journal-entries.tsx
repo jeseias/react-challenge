@@ -5,6 +5,7 @@ import NoEntries from './no-entries'
 import { EntriesList } from './entries-list'
 import { Entry } from 'domain/models/entry'
 import { LoadEntries } from 'domain/usecases/load-entries'
+import { useParams } from 'react-router-dom'
 
 type Props = {
   loadEntries: LoadEntries
@@ -12,11 +13,11 @@ type Props = {
 
 const JournalEntries: React.FC<Props> = ({ loadEntries }: Props) => {
   const [entries, setEntries] = useState<Entry[]>([])
+  const { id, entryId } = useParams()
 
   const handleLoadEntries = async () => {
     try {
       const result = await loadEntries.load()
-      console.log(result)
       setEntries(result)
     } catch (error) {
       console.log(error)
@@ -26,12 +27,12 @@ const JournalEntries: React.FC<Props> = ({ loadEntries }: Props) => {
     handleLoadEntries()
   }, [])
 
-  const addEntryRoute = `/journals/posts/1/create`
+  const addEntryRoute = `/journals/${id}/entries/${entryId}/create`
   return (
     <Box p="3.2rem 2.8rem 3.209rem 2.8rem" h="100%">
       <Flex justifyContent="space-between" alignItems="center">
         <LogoSVG aria-label="company logo"/>
-        {entries[0] && <ButtonAdd to={addEntryRoute} role="button">Add Note</ButtonAdd>}
+        {entries[0] && <ButtonAdd to={addEntryRoute} state={{ id, entryId }} role="button">Add Note</ButtonAdd>}
       </Flex>
       {entries[0] ? <EntriesList entries={entries} /> : <NoEntries />}
     </Box>

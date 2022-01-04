@@ -5,7 +5,6 @@ import { PageRoutes } from 'main/constants/page-routes'
 import { AddAccount } from 'domain/usecases/add-account'
 import { LocalStorageAdapter } from 'infra/cache'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from 'presentation/modules/hooks'
 
 type Props = {
   addAccount: AddAccount
@@ -17,11 +16,9 @@ const SignUp: React.FC<Props> = ({ addAccount }: Props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { updateAccount } = useAuth()
-
   const navigate = useNavigate()
 
-  const handleSubmit = async () => {
+  const handleAddAccount = async () => {
     try {
       const account = await addAccount.add({
         email: email,
@@ -30,8 +27,7 @@ const SignUp: React.FC<Props> = ({ addAccount }: Props) => {
       })
 
       if (account) {
-        updateAccount(account)
-        navigate(PageRoutes.JournalsList)
+        navigate(PageRoutes.SignIn)
       }
     } catch (error) {
       console.log(error)
@@ -72,7 +68,7 @@ const SignUp: React.FC<Props> = ({ addAccount }: Props) => {
             />
         </Box> 
         <Flex justifyContent="center" mt="4rem">
-          <CustomButton onClick={handleSubmit}>Sign In</CustomButton>
+          <CustomButton onClick={handleAddAccount}>Sign Up</CustomButton>
         </Flex>
       </Box>
     </Box>

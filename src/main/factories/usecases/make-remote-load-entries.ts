@@ -3,4 +3,4 @@ import { LoadEntries } from "domain/usecases/load-entries";
 import { makeApiUrl, makeAxiosHttpClient } from "main/http";
 
 export const makeRemoteLoadEntries = (id: string): LoadEntries => 
-  new RemoteLoadEntries(makeApiUrl(`/journals/post/${id}`), makeAxiosHttpClient())
+  new RemoteLoadEntries(makeApiUrl(`/journals/entry/${id}`), makeAxiosHttpClient())
