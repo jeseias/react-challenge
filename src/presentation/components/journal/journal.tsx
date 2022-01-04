@@ -1,12 +1,12 @@
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import { Journal as JournalProps } from 'domain/models/journal'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import Title from '../title/title'
 
 const Journal: React.FC<JournalProps> = ({ title, id }) => {
   const navigate = useNavigate()
   const { userId } = useParams()
-  console.log('The user id is', userId)
   return (
     <Flex 
       justifyContent="center" 
@@ -18,7 +18,7 @@ const Journal: React.FC<JournalProps> = ({ title, id }) => {
       bg="#B8E5E3"
       h="20.1rem"
       color="black"
-      _even={{ bg: '#3B4E8D', color: 'white' }}
+      _even={{ bg: '#3B4E8D', color: '#fff' }}
       cursor="pointer"
       transition="all ease-in-out .25s"
       onClick={() => navigate(`/journals/${userId}/entries/${id}`, { state: { title } })}
@@ -32,7 +32,7 @@ const Journal: React.FC<JournalProps> = ({ title, id }) => {
         h="100%"
         w="1.1rem"
       />
-      <Text fontSize="2.4rem" fontFamily="Abhaya Libre" lineHeight="2.8rem">{title}</Text>
+      <Title color="inherit">{title}</Title>
     </Flex>
   )
 }

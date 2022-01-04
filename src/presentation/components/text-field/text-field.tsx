@@ -13,27 +13,30 @@ const TextField: React.FC<Props & InputProps & TextareaProps> = ({ textArea, reg
         <Textarea
           aria-label="textarea"
           display="block"
-          bg="rgba(255, 255, 255, 0.12)"
-          border=" 1px solid rgba(157, 164, 166, 0.07"
+          border=" 1px solid rgba(157, 164, 166, 0.07)"
           borderRadius=".4rem"
           h="4rem"
           fontSize="1.2rem"
           fontWeight="600"
           lineHeight="15px"
+          bg="lightWhite"
+          color="primary.500"
+          focusBorderColor="none"
           {...register}
           {...rest}
         />
       : (
         <Input 
           aria-label="input"
-          bg="rgba(255, 255, 255, 0.12)"
-          border=" 1px solid rgba(157, 164, 166, 0.07"
+          border=" 1px solid rgba(157, 164, 166, 0.07)"
           borderRadius=".4rem"
           h="4rem"
           fontSize="1.2rem"
           fontWeight="600"
           lineHeight="15px"
-          color="red !important"
+          bg="lightWhite"
+          color="primary.500"
+          focusBorderColor="none"
           {...register}
           {...rest}
         />

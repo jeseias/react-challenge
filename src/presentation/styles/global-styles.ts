@@ -28,6 +28,7 @@ export const theme = extendTheme({
       500: '#6E3421',
       600: '#6E3421'
     },
+    lightWhite: 'rgba(255, 255, 255, 0.42)',
     dark: '#020202',
     grey: '#736D6B'
   },

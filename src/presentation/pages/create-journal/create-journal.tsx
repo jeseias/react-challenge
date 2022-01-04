@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Box, Flex, Text,  } from "@chakra-ui/react"
-import { CustomButton, TextField, LogoSVG } from 'presentation/components'
+import { Box, Flex } from "@chakra-ui/react"
+import { CustomButton, TextField, LogoSVG, Title } from 'presentation/components'
 import { SaveJournal } from 'domain/usecases/save-journal'
 import { useNavigate, useParams } from 'react-router-dom'
 import { PageRoutes } from 'main/constants/page-routes'
@@ -54,23 +54,23 @@ const CreateJournal: React.FC<Props> = ({ saveJournal }: Props) => {
           boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
           borderRadius="2px 0px 0px 2px"
         />
-        <Text 
-          fontSize="2.4rem" 
-          fontWeight="bold" 
-          fontFamily="Abhaya Libre" 
-          lineHeight="2.8rem" 
-          maxWidth="85%" 
-        >
-          {name}
-        </Text>
-      </Flex>
+        <Title maxWidth="85%">{name}</Title>
+      </Flex> 
       <TextField 
-        placeholder="journal title"
-        onChange={e => setName(e.target.value)}
+        placeContent="journal title" 
+        bg="rgba(255,255,255,.42)" 
+        color="primary.500"
         fontSize="1.2rem"
-        lineHeight="1.5rem"
-        color="#804627 !important"
-      />
+        fontWeight="600"
+        fontFamily="Montserrat"
+        lineHeight="1.463rem"
+        border=" 1px solid rgba(157, 164, 166, 0.07)"
+        borderRadius=".4rem"
+        h="4rem"
+        aria-label="input"
+        focusBorderColor="none"
+        onChange={e => setName(e.target.value)}
+      /> 
       <CustomButton mt="4.2rem" onClick={handleSaveJournal}>Save journal</CustomButton>
     </Flex>
   )

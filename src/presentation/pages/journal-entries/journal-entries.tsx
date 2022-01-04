@@ -5,7 +5,7 @@ import NoEntries from './no-entries'
 import { EntriesList } from './entries-list'
 import { Entry } from 'domain/models/entry'
 import { LoadEntries } from 'domain/usecases/load-entries'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 type Props = {
   loadEntries: LoadEntries
@@ -21,11 +21,11 @@ const JournalEntries: React.FC<Props> = ({ loadEntries }: Props) => {
   const [entries, setEntries] = useState<Entry[]>([])
   const { userId, entryId } = useParams()
   const { state: { title } } = useLocation() as LocationProps
+  const navigate = useNavigate()
 
   const handleLoadEntries = async () => {
     try {
       const result = await loadEntries.load()
-      console.log('we have the following', result.entries)
       setEntries(result.entries)
     } catch (error) {
       console.log(error)
@@ -39,7 +39,7 @@ const JournalEntries: React.FC<Props> = ({ loadEntries }: Props) => {
   return (
     <Box p="3.2rem 2.8rem 3.209rem 2.8rem" h="100%">
       <Flex justifyContent="space-between" alignItems="center">
-        <LogoSVG aria-label="company logo"/>
+        <LogoSVG aria-label="company logo" onClick={() => navigate(`/journals/${userId}`)} />
         {entries[0] && <ButtonAdd to={addEntryRoute} state={{ title }} role="button">Add Note</ButtonAdd>}
       </Flex>
       {entries[0] ? <EntriesList entries={entries} /> : <NoEntries />}
