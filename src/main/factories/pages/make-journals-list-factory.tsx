@@ -1,7 +1,7 @@
 import { JournalsList } from 'presentation/pages'
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { makeRemoteLoadJournals } from '../usecases/make-remote-load-journals'
+import { makeRemoteLoadJournals } from '../usecases'
 
 export const MakeJournalsList: React.FC = () => {
   const { userId } = useParams()

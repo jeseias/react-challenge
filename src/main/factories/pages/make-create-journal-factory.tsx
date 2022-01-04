@@ -1,6 +1,6 @@
 import { CreateJournal } from 'presentation/pages'
 import React from 'react'
-import { makeRemoteSaveJournal } from '../usecases/make-remote-save-journal'
+import { makeRemoteSaveJournal } from '../usecases'
 
 export const MakeCreateJournal: React.FC = () => {
   return <CreateJournal 
