@@ -4,7 +4,6 @@ import { RenderResult, screen } from '@testing-library/react'
 import JournalEntries from '../journal-entries'
 import { LoadEntries } from 'domain/usecases/load-entries';
 import { renderWithRouter } from 'presentation/modules/test-utils';
-import { act } from 'react-dom/test-utils';
 
 class LoadEntriesSpy implements LoadEntries {
   entries =  [
@@ -61,9 +60,7 @@ describe('JournalEntries Page', () => {
   it('Should render NoEntries Component', () => {
     const { loadEntriesSpy, sut } = makeSut()
     jest.spyOn(loadEntriesSpy, 'load').mockResolvedValueOnce(null as any)
-    act(() => {
-      sut()
-    })
+    sut()
     expect(screen.getByLabelText('no entries')).toBeInTheDocument()
   })
 

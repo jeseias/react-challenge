@@ -1,15 +1,16 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { screen, fireEvent } from '@testing-library/react'
 import CreateJournalsEntry from './create-journals-entry'
 import { SaveEntry } from 'domain/usecases/save-entry'
 import userEvent from '@testing-library/user-event'
 import { mockEntryModel } from 'domain/__mocks__/mock-entries'
+import { renderWithRouter } from 'presentation/modules/test-utils'
 
 jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
   useLocation: jest.fn().mockReturnValue({
     state: {
-      id: 'journal2',
-      title: 'Journal Title HTML'
+      title: 'Journal Title'
     }
   })
 }))
@@ -32,7 +33,7 @@ type SutTypes = {
 
 const makeSut = (): SutTypes => {
   const saveEntrySpy = new SaveEntrySpy()
-  render(<CreateJournalsEntry saveEntry={saveEntrySpy} />)
+  renderWithRouter(<CreateJournalsEntry saveEntry={saveEntrySpy} />)
   return {
     saveEntrySpy
   }
@@ -41,9 +42,9 @@ const makeSut = (): SutTypes => {
 describe('CreateJournalsEntry Page', () => {
   it('Should render as expected', () => {
     makeSut()
-    expect(screen.getByText('Journal Title HTML')).toBeInTheDocument()
-    expect(screen.getByPlaceholderText('title')).toBeInTheDocument()
-    expect(screen.getByPlaceholderText('Write your note')).toBeInTheDocument()
+    expect(screen.getByText('Journal Title')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('Title')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('Write your note')).toBeInTheDocument()
     expect(screen.getByText('Save note')).toBeInTheDocument()
   })
 
@@ -54,8 +55,7 @@ describe('CreateJournalsEntry Page', () => {
     fireEvent.click(screen.getByText('Save note'))
     expect(saveEntrySpy.params).toEqual({
       title: 'The article element',
-      content: 'The article element content',
-      journalId: 'journal2'
+      content: 'The article element content'
     })
   })
 
