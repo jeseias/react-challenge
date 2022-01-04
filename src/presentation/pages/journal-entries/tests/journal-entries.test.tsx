@@ -5,17 +5,29 @@ import JournalEntries from '../journal-entries'
 import { LoadEntries } from 'domain/usecases/load-entries';
 import { renderWithRouter } from 'presentation/modules/test-utils';
 
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useLocation: jest.fn().mockReturnValue({
+    state: {
+      title: 'title'
+    }
+  })
+}))
+
 class LoadEntriesSpy implements LoadEntries {
   entries =  [
     mockEntryModel(),
     mockEntryModel(),
     mockEntryModel(),
   ]
+  response = {
+    entries: this.entries 
+  }
   callCounts = 0
   
-  async  load(): Promise<LoadEntries.Model> {
+  async load(): Promise<LoadEntries.Model> {
     this.callCounts++
-    return this.entries
+    return this.response
   }
 }
 
@@ -38,24 +50,10 @@ describe('JournalEntries Page', () => {
     jest.clearAllMocks()
   })
 
-  it('Should render as expected', async () => {
+  it('Should render as expected', () => {
     makeSut().sut()
     expect(screen.getByLabelText('company logo')).toBeInTheDocument()
   })
-
-  it('Should render Add Note Button', async () => {
-    makeSut().sut()
-    expect(screen.getByText('Add Note')).toBeInTheDocument()
-  })
-
-  // it('Should not render Add Note Button', () => {
-  //   const { loadEntriesSpy, sut } = makeSut()
-  //   // jest.spyOn(loadEntriesSpy, 'load').mockResolvedValueOnce(null as any)
-  //   act(() => {
-  //     sut()
-  //   })
-  //   expect(screen.queryByRole('button', { name: 'Add Note' })).not.toBeInTheDocument()
-  // })
 
   it('Should render NoEntries Component', () => {
     const { loadEntriesSpy, sut } = makeSut()
@@ -64,8 +62,9 @@ describe('JournalEntries Page', () => {
     expect(screen.getByLabelText('no entries')).toBeInTheDocument()
   })
 
-  // it('Should call loadEntries.load only once', () => {
-  //   const { loadEntriesSpy } = makeSut()
-  //   expect(loadEntriesSpy.callCounts).toBe(1)
-  // })
+  it('Should call loadEntries.load only once', () => {
+    const { loadEntriesSpy, sut } = makeSut()
+    sut()
+    expect(loadEntriesSpy.callCounts).toBe(1)
+  })
 });

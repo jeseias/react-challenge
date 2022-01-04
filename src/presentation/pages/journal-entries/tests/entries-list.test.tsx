@@ -1,7 +1,8 @@
 import { mockEntryModel } from 'domain/__mocks__/mock-entries';
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { EntriesList } from '../entries-list'
+import { renderWithRouter } from 'presentation/modules/test-utils';
 
 const entries = [
   mockEntryModel(),
@@ -9,7 +10,7 @@ const entries = [
   mockEntryModel(),
 ]
 
-const makeSut = () => render(<EntriesList entries={entries} />)
+const makeSut = () => renderWithRouter(<EntriesList entries={entries} />)
 
 describe('EntriesList Component', () => {
   it.each(entries)('Should render as expected', (data) => {

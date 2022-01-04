@@ -4,6 +4,7 @@ import NoEntries from '../no-entries'
 import { renderWithRouter } from 'presentation/modules/test-utils';
 
 jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
   useLocation: jest.fn().mockReturnValue({
     state: {
       id: 'journal12',
