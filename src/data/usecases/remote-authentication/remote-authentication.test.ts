@@ -1,10 +1,10 @@
-import { HttpClientSpy } from "data/protocols/http/__mocks__/mock-http";
-import { RemoteAuthentication } from "./remote-authentication";
-import * as faker from 'faker'
-import { Authentication } from "domain/usecases/authentication";
-import { HttpStatusCode } from "data/protocols/http/http-client";
 import { InvalidCredentialsError } from "domain/errors/invalid-credentials-error";
 import { mockAuthenticationModel, mockAuthenticationParams } from "domain/__mocks__/mock-authentication";
+import { HttpClientSpy } from "data/protocols/http/__mocks__/mock-http";
+import { RemoteAuthentication } from "./remote-authentication";
+import { Authentication } from "domain/usecases/authentication";
+import { HttpStatusCode } from "data/protocols/http/http-client";
+import * as faker from 'faker'
 
 type SutTypes = {
   sut: RemoteAuthentication
@@ -24,24 +24,21 @@ describe('RemoteAuthentication', () => {
   it('Should call HttpClient with correct values', async () => {
     const url = faker.internet.url()
     const { sut, httpClientSpy } = makeSut(url)
-    const requestSpy = jest.spyOn(httpClientSpy, 'request')
     const params = mockAuthenticationParams()
-    await sut.auth(params)
-    expect(requestSpy).toHaveBeenCalledWith({
-      url,
-      method: 'post',
-      body: params
-    })
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.created
+    }
+    await sut.auth(params) 
     expect(httpClientSpy.url).toBe(url)
     expect(httpClientSpy.method).toBe('post')
     expect(httpClientSpy.body).toBe(params)
   })
 
   it('Should return Authentication.Model if HttpClient returns 200', async () => {
-    const {sut,httpClientSpy} = makeSut()
+    const { sut, httpClientSpy } = makeSut()
     const httpResult = mockAuthenticationModel()
     httpClientSpy.response = {
-      statusCode: HttpStatusCode.ok,
+      statusCode: HttpStatusCode.created,
       body: httpResult
     }
     const account = await sut.auth(mockAuthenticationParams())
