@@ -57,7 +57,7 @@ const CreateJournal: React.FC<Props> = ({ saveJournal }: Props) => {
         <Title maxWidth="85%">{name}</Title>
       </Flex> 
       <TextField 
-        placeContent="journal title" 
+        placeholder="journal title" 
         bg="rgba(255,255,255,.42)" 
         color="primary.500"
         fontSize="1.2rem"

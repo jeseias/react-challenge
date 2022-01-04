@@ -1,9 +1,11 @@
 import React from 'react'
-import { fireEvent, render, screen } from '@testing-library/react'
-import CreateJournal from './create-journal'
+import { fireEvent, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { SaveJournal } from 'domain/usecases/save-journal'
 import { mockSaveJournalModel } from 'domain/__mocks__/mock-journal'
+import { renderWithRouter } from 'presentation/modules/test-utils'
+import CreateJournal from './create-journal'
+
 
 class SaveJournalSpy implements SaveJournal {
   journal = mockSaveJournalModel()
@@ -16,19 +18,16 @@ class SaveJournalSpy implements SaveJournal {
     return this.journal
   }
 }
-
 type SutTypes = {
   saveJournalSpy: SaveJournalSpy
 }
 
 const makeSut = (): SutTypes => {
-  const saveJournalSpy = new SaveJournalSpy()
-  render(<CreateJournal saveJournal={saveJournalSpy} />)
-
-  return {
-    saveJournalSpy
-  }
+  const saveJournalSpy  = new SaveJournalSpy()
+  renderWithRouter(<CreateJournal saveJournal={saveJournalSpy} />)
+  return { saveJournalSpy }
 }
+
 
 describe('CreateJournal Page', () => {
   it('Should render as expected', () => {
@@ -47,7 +46,6 @@ describe('CreateJournal Page', () => {
       type: 'public'
     })
   })
-
 
   it('Should call saveJournal.save only once', () => {
     const { saveJournalSpy } = makeSut()
