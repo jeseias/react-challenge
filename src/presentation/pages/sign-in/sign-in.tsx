@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Box, Flex } from "@chakra-ui/react"
 import { LinkText, LogoSVG, AuthTitle, CustomButton, AuthInput } from 'presentation/components'
 import { PageRoutes } from 'main/constants/page-routes'
-import { Authentication } from 'domain/usecases/authentication'
+import { Authentication } from 'domain/usecases'
 import { LocalStorageAdapter } from 'infra/cache'
 import { REACT_CHALLENGE_ACCOUNT } from 'presentation/modules/contexts/auth-context'
 import { useNavigate } from 'react-router-dom'
@@ -46,6 +46,7 @@ const SignIn = ({ authentication, storage }: Props) => {
               label="Your username" 
               value={username} 
               onChange={e => setUsername(e.target.value)} 
+              data-testid="username-input"
             />
           </Box>
           <AuthInput
@@ -53,6 +54,7 @@ const SignIn = ({ authentication, storage }: Props) => {
            type="password" 
            value={password} 
            onChange={e => setPassword(e.target.value)} 
+           data-testid="password-input"
           />
         </Box>
         <Flex justifyContent="flex-end" mt="1.2rem">
