@@ -1,9 +1,9 @@
-import { InvalidCredentialsError } from "domain/errors/invalid-credentials-error";
+import { Authentication } from "domain/usecases/authentication";
+import { InvalidCredentialsError } from "domain/errors";
 import { mockAuthenticationModel, mockAuthenticationParams } from "domain/__mocks__/mock-authentication";
 import { HttpClientSpy } from "data/protocols/http/__mocks__/mock-http";
+import { HttpStatusCode } from "data/protocols/http";
 import { RemoteAuthentication } from "./remote-authentication";
-import { Authentication } from "domain/usecases/authentication";
-import { HttpStatusCode } from "data/protocols/http/http-client";
 import * as faker from 'faker'
 
 type SutTypes = {

@@ -1,10 +1,10 @@
+import { SaveEntry } from "domain/usecases";
+import { FailInToSave } from "domain/errors";
+import { mockSaveEntryParams, mockSaveEntryReturnModel } from "domain/__mocks__/mock-entries";
 import { HttpClientSpy } from "data/protocols/http/__mocks__/mock-http";
-import { SaveEntry } from "domain/usecases/save-entry";
+import { HttpStatusCode } from "data/protocols/http";
 import { RemoteSaveEntry } from "./remote-save-entry";
 import * as faker from 'faker'
-import { mockSaveEntryParams, mockSaveEntryReturnModel } from "domain/__mocks__/mock-entries";
-import { HttpStatusCode } from "data/protocols/http/http-client";
-import { FailInToSave } from "domain/errors";
 
 type SutTypes = {
   sut: RemoteSaveEntry

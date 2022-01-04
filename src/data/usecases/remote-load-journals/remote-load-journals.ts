@@ -1,6 +1,6 @@
-import { HttpClient, HttpStatusCode } from "data/protocols/http/http-client";
+import { HttpClient, HttpStatusCode } from "data/protocols/http";
 import { UnexpectedError, FailInLoadError  } from "domain/errors";
-import { LoadJournals } from "domain/usecases/load-journals";
+import { LoadJournals } from "domain/usecases";
 
 export class RemoteLoadJournals implements LoadJournals {
   constructor(

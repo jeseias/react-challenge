@@ -1,6 +1,6 @@
-import { HttpClient, HttpStatusCode } from "data/protocols/http/http-client";
+import { HttpClient, HttpStatusCode } from "data/protocols/http";
 import { FailInToSave, UnexpectedError } from "domain/errors";
-import { SaveEntry } from "domain/usecases/save-entry";
+import { SaveEntry } from "domain/usecases";
 
 export class RemoteSaveEntry implements SaveEntry {
   constructor(

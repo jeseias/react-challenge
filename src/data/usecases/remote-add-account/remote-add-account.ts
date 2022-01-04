@@ -1,6 +1,6 @@
-import { HttpClient, HttpStatusCode } from "data/protocols/http/http-client";
-import { UnexpectedError } from "domain/errors/unexpected-error";
-import { UserAlreadyExistsError } from "domain/errors/user-already-exists-error";
+import { UserAlreadyExistsError } from "domain/errors";
+import { UnexpectedError } from "domain/errors";
+import { HttpClient, HttpStatusCode } from "data/protocols/http";
 import { AddAccount } from "domain/usecases/add-account";
 
 export class RemoteAddAccount implements AddAccount {

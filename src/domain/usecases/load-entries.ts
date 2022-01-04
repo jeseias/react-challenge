@@ -1,4 +1,4 @@
-import { Entry } from "domain/models/entry";
+import { Entry } from "domain/models";
 
 export interface LoadEntries {
   load(): Promise<LoadEntries.Model>

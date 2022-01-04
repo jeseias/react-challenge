@@ -1,4 +1,4 @@
-import { Journal } from "domain/models/journal";
+import { Journal } from "domain/models";
 
 export interface LoadJournals {
   load(): Promise<LoadJournals.Model>

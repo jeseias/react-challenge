@@ -1,9 +1,9 @@
-import { HttpClientSpy } from "data/protocols/http/__mocks__/mock-http";
-import { RemoteAddAccount } from "./remote-add-account";
-import * as faker from 'faker'
-import { HttpStatusCode } from "data/protocols/http/http-client";
-import { UserAlreadyExistsError } from "domain/errors/user-already-exists-error"; 
 import { mockAddAccountModel, mockAddAccountParams } from "domain/__mocks__/mock-add-account";
+import { UserAlreadyExistsError } from "domain/errors"; 
+import { HttpClientSpy } from 'data/protocols/http/__mocks__/mock-http'
+import { HttpStatusCode } from "data/protocols/http";
+import { RemoteAddAccount } from './remote-add-account'
+import * as faker from 'faker'
 
 type SutTypes = {
   sut: RemoteAddAccount

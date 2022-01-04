@@ -1,6 +1,6 @@
-import { HttpClient, HttpStatusCode } from "data/protocols/http/http-client";
+import { HttpClient, HttpStatusCode } from "data/protocols/http";
 import { UnexpectedError, UserDoesNotExistsError } from "domain/errors";
-import { SaveJournal } from "domain/usecases/save-journal";
+import { SaveJournal } from "domain/usecases";
 
 export class RemoteSaveJournal implements SaveJournal {
   constructor(

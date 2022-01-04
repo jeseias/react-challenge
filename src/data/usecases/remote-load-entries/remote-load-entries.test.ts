@@ -1,10 +1,10 @@
+import { FailInLoadError } from "domain/errors";
+import { mockLoadEntriesModel } from "domain/__mocks__/mock-entries";
+import { LoadEntries } from "domain/usecases";
 import { HttpClientSpy } from "data/protocols/http/__mocks__/mock-http";
+import { HttpStatusCode } from "data/protocols/http";
 import { RemoteLoadEntries } from "./remote-load-entries";
 import * as faker from 'faker'
-import { LoadEntries } from "domain/usecases/load-entries";
-import { HttpStatusCode } from "data/protocols/http/http-client";
-import { mockLoadEntriesModel } from "domain/__mocks__/mock-entries";
-import { FailInLoadError } from "domain/errors";
 
 type SutTypes = {
   sut: RemoteLoadEntries

@@ -1,10 +1,10 @@
+import { mockSaveJournalModel, mockSaveJournalParams } from "domain/__mocks__/mock-journal";
+import { SaveJournal } from "domain/usecases";
+import { UserDoesNotExistsError } from "domain/errors";
+import { HttpStatusCode } from "data/protocols/http/http-client";
 import { HttpClientSpy } from "data/protocols/http/__mocks__/mock-http";
-import { SaveJournal } from "domain/usecases/save-journal";
 import { RemoteSaveJournal } from "./remote-save-journal";
 import * as faker from 'faker'
-import { HttpStatusCode } from "data/protocols/http/http-client";
-import { UserDoesNotExistsError } from "domain/errors";
-import { mockSaveJournalModel, mockSaveJournalParams } from "domain/__mocks__/mock-journal";
 
 type SutTypes = {
   sut: RemoteSaveJournal

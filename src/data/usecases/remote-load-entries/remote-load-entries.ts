@@ -1,6 +1,6 @@
-import { HttpClient, HttpStatusCode } from "data/protocols/http/http-client";
+import { HttpClient, HttpStatusCode } from "data/protocols/http";
 import { FailInLoadError, UnexpectedError  } from "domain/errors";
-import { LoadEntries } from "domain/usecases/load-entries";
+import { LoadEntries } from "domain/usecases";
 
 export class RemoteLoadEntries implements LoadEntries {
   constructor(

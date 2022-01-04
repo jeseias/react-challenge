@@ -1,5 +1,4 @@
-import { Journal } from "domain/models/journal"
-import { UserModel } from "domain/models/user"
+import { Journal, UserModel } from "domain/models"
 
 export interface SaveJournal {
   save(params: SaveJournal.Params): Promise<SaveJournal.Model>
