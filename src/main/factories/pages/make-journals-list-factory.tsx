@@ -1,9 +1,9 @@
-import { useAuth } from 'presentation/modules/hooks'
 import { JournalsList } from 'presentation/pages'
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { makeRemoteLoadJournals } from '../usecases/make-remote-load-journals'
 
 export const MakeJournalsList: React.FC = () => {
-  const { account } = useAuth()
-  return <JournalsList loadJournals={makeRemoteLoadJournals(account?.user.id)} />
+  const { userId } = useParams()
+  return <JournalsList loadJournals={makeRemoteLoadJournals(userId)} />
 }

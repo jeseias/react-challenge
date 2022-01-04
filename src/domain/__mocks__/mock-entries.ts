@@ -16,7 +16,9 @@ export const mockSaveEntryParams = (): SaveEntry.Params => ({
   journalId: faker.datatype.uuid()
 })
 
-export const mockLoadEntriesModel = (): LoadEntries.Model => ([
-  mockEntryModel(),
-  mockEntryModel()
-])
+export const mockLoadEntriesModel = (): LoadEntries.Model => ({
+  entries: [
+    mockEntryModel(),
+    mockEntryModel(),
+  ]
+})

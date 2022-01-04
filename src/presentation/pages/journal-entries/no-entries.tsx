@@ -12,8 +12,8 @@ type LocationProps = {
 
 const NoEntries: React.FC = () => {
   const { state: { title } }  = useLocation() as LocationProps
-  const { entryId, id } = useParams()
-  const createRoute = `/journals/${id}/entries/${entryId}/create`
+  const { entryId, userId } = useParams()
+  const createRoute = `/journals/${userId}/entries/${entryId}/create`
   return (
     <Flex flexDir="column" alignItems="center" aria-label="no entries">
       <Text m="12.4rem 0 6.694rem 0" fontSize="2.4rem"fontWeight="bold" color="#000000">{title}</Text>

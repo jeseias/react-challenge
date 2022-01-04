@@ -5,5 +5,5 @@ export interface LoadEntries {
 }
 
 export namespace LoadEntries {
-  export type Model = Entry[]
+  export type Model = {entries: Entry[]}
 }

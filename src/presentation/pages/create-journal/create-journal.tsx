@@ -11,19 +11,19 @@ type Props = {
 
 const CreateJournal: React.FC<Props> = ({ saveJournal }: Props) => {
   const [name, setName] = useState('')
-  const { id } = useParams() as { id: string }
+  const { userId } = useParams() as { userId: string }
   const navigate = useNavigate()
 
   async function handleSaveJournal() {
     try {
         await saveJournal.save({ 
           title: name,
-          userId: id,
+          userId,
           type: 'public' 
         })
-        navigate(`${PageRoutes.Journals}/${id}`)
+        navigate(`${PageRoutes.Journals}/${userId}`)
     } catch (error) {
-      console.error(error)
+      console.error(error)  
     }
   }
 

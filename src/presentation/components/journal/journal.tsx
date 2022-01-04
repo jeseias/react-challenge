@@ -5,7 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 const Journal: React.FC<JournalProps> = ({ title, id }) => {
   const navigate = useNavigate()
-  const { id: journalID } = useParams()
+  const { userId } = useParams()
+  console.log('The user id is', userId)
   return (
     <Flex 
       justifyContent="center" 
@@ -20,7 +21,7 @@ const Journal: React.FC<JournalProps> = ({ title, id }) => {
       _even={{ bg: '#3B4E8D', color: 'white' }}
       cursor="pointer"
       transition="all ease-in-out .25s"
-      onClick={() => navigate(`/journals/${journalID}/entries/${id}`, { state: { title } })}
+      onClick={() => navigate(`/journals/${userId}/entries/${id}`, { state: { title } })}
     >
       <Box 
         boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"

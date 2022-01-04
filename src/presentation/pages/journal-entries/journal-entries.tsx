@@ -13,12 +13,13 @@ type Props = {
 
 const JournalEntries: React.FC<Props> = ({ loadEntries }: Props) => {
   const [entries, setEntries] = useState<Entry[]>([])
-  const { id, entryId } = useParams()
+  const { userId, entryId } = useParams()
 
   const handleLoadEntries = async () => {
     try {
       const result = await loadEntries.load()
-      setEntries(result)
+      console.log('we have the following', result.entries)
+      setEntries(result.entries)
     } catch (error) {
       console.log(error)
     }
@@ -27,12 +28,12 @@ const JournalEntries: React.FC<Props> = ({ loadEntries }: Props) => {
     handleLoadEntries()
   }, [])
 
-  const addEntryRoute = `/journals/${id}/entries/${entryId}/create`
+  const addEntryRoute = `/journals/${userId}/entries/${entryId}/create`
   return (
     <Box p="3.2rem 2.8rem 3.209rem 2.8rem" h="100%">
       <Flex justifyContent="space-between" alignItems="center">
         <LogoSVG aria-label="company logo"/>
-        {entries[0] && <ButtonAdd to={addEntryRoute} state={{ id, entryId }} role="button">Add Note</ButtonAdd>}
+        {entries[0] && <ButtonAdd to={addEntryRoute} state={{ userId, entryId }} role="button">Add Note</ButtonAdd>}
       </Flex>
       {entries[0] ? <EntriesList entries={entries} /> : <NoEntries />}
     </Box>
