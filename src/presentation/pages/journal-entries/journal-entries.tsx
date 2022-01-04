@@ -39,7 +39,7 @@ const JournalEntries: React.FC<Props> = ({ loadEntries }: Props) => {
   return (
     <Box p="3.2rem 2.8rem 3.209rem 2.8rem" h="100%">
       <Flex justifyContent="space-between" alignItems="center">
-        <LogoSVG aria-label="company logo" onClick={() => navigate(`/journals/${userId}`)} />
+        <LogoSVG aria-label="company logo" onClick={() => navigate(`/journals/${userId}`)} cursor="pointer" />
         {entries[0] && <ButtonAdd to={addEntryRoute} state={{ title }} role="button">Add Note</ButtonAdd>}
       </Flex>
       {entries[0] ? <EntriesList entries={entries} /> : <NoEntries />}
