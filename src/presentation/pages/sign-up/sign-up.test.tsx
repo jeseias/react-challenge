@@ -55,12 +55,11 @@ describe('SignUp Page Page', () => {
   it('Should render as expected', () => {
     makeSut().sut()
 
-    expect(screen.getByText('Sign Up')).toBeInTheDocument()
     expect(screen.getByText('Already have an account')).toBeInTheDocument()
     expect(screen.getByText('Define a username')).toBeInTheDocument()
     expect(screen.getByText('Email (optional)')).toBeInTheDocument()
     expect(screen.getByText('Set your password')).toBeInTheDocument()
-    expect(screen.getByText('Sign In')).toBeInTheDocument()
+    expect(screen.getAllByText('Sign Up')).toHaveLength(2)
 
     expect(screen.getByTestId('username-input')).toBeInTheDocument()
     expect(screen.getByTestId('email-input')).toBeInTheDocument()
@@ -75,7 +74,7 @@ describe('SignUp Page Page', () => {
     userEvent.type(screen.getByTestId('email-input'), 'any_email')
     userEvent.type(screen.getByTestId('password-input'), 'any_password')
 
-    fireEvent.click(screen.getByText('Sign In'))
+    fireEvent.click(screen.getAllByText('Sign Up')[1])
 
     expect(addAccountSpy.callCounts).toBe(1)
     expect(addAccountSpy.params).toEqual({
