@@ -1,3 +1,0 @@
-API ERROR
-
-The first journal I create comes with an ID of 2 
