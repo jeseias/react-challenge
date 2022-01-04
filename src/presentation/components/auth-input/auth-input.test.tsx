@@ -1,11 +1,9 @@
 import React from 'react'
-import { render, screen, waitFor  } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import AuthInput from "./auth-input";
 import { InputProps } from '@chakra-ui/react';
-import userEvent from '@testing-library/user-event';
 
-const register = jest.fn()
-const makeSut = (props?: InputProps) => render(<AuthInput label="name" register={register} {...props}  />)
+const makeSut = (props?: InputProps) => render(<AuthInput label="name" {...props}  />)
 
 describe(AuthInput.name, () => {
   it('Should render as expected', () => {
@@ -26,20 +24,18 @@ describe(AuthInput.name, () => {
     `)
   })
 
-  it('Should render input in focus state', async() => {
+  it('Should render input in focus state', () => {
     makeSut({ placeholder: 'name' })
 
     const input = screen.getByPlaceholderText('name')
-    userEvent.type(input, 'james')
+    fireEvent.focus(input)
 
-    await waitFor(() => 
-      expect(screen.getByText('name')).toHaveStyle(`
-        top: .4rem;
-        left: .7rem;
-        font-size: .9rem;
-        font-weight: normal;
-        color: grey
-      `)
-    )
+    expect(screen.getByText('name')).toHaveStyle(`
+      top: .4rem;
+      left: .7rem;
+      font-size: .9rem;
+      font-weight: normal;
+      color: grey
+    `)
   })
 });
