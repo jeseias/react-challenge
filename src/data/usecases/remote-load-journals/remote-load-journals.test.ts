@@ -23,7 +23,10 @@ const makeSut = (url: string = faker.internet.url()): SutTypes => {
 describe('RemoteLoadJournals', () => {
   it('Should call HttpClient with correct values', async () => {
     const url = faker.internet.url()
-    const {sut, httpClientSpy} = makeSut(url)
+    const { sut, httpClientSpy } = makeSut(url)
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.ok
+    }
     await sut.load()
     expect(httpClientSpy.url).toBe(url)
     expect(httpClientSpy.method).toBe('get')

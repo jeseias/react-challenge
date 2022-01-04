@@ -9,13 +9,10 @@ export class RemoteLoadJournals implements LoadJournals {
   ){}
 
   async load(): Promise<RemoteLoadJournals.Model> {
-    console.log('REMOTELOADJOURNALS')
     const httpResponse = await this.httpClient.request({
       url: this.url,
       method: 'get',
     })
-
-    console.log('REMOTELOADJOURNALS URL::::', this.url)
 
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok: return httpResponse.body as RemoteLoadJournals.Model

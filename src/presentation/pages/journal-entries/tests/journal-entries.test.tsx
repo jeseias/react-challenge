@@ -44,7 +44,7 @@ describe('JournalEntries Page', () => {
     expect(screen.getByLabelText('company logo')).toBeInTheDocument()
   })
 
-  it.only('Should render Add Note Button', async () => {
+  it('Should render Add Note Button', async () => {
     makeSut().sut()
     expect(screen.getByText('Add Note')).toBeInTheDocument()
   })

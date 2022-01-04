@@ -20,7 +20,7 @@ const makeSut = (url: string = faker.internet.url()): SutTypes => {
   }
 }
 describe('RemoteSaveJournal', () => {
-  it.only('Should call HttpClient with correct values', async () => {
+  it('Should call HttpClient with correct values', async () => {
     const url = faker.internet.url()
     const { sut, httpClientSpy } = makeSut(url)
     const params = mockSaveJournalParams()
@@ -33,11 +33,11 @@ describe('RemoteSaveJournal', () => {
     expect(httpClientSpy.body).toBe(params)
   })
 
-  it('Should returns RemoteSaveJournal.Model if HttpClient returns 200', async () => {
+  it('Should returns RemoteSaveJournal.Model if HttpClient returns 201', async () => {
     const {sut, httpClientSpy} = makeSut()
     const httpResult = mockSaveJournalModel()
     httpClientSpy.response = {
-      statusCode: HttpStatusCode.ok,
+      statusCode: HttpStatusCode.created,
       body: httpResult
     }
     const journal = await sut.save(mockSaveJournalParams())
