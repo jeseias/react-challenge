@@ -6,17 +6,14 @@ import { useNavigate  } from 'react-router-dom'
 export const REACT_CHALLENGE_ACCOUNT = 'react_challenge_account'
 
 type Props = {
-  isLoggedIn: boolean
   account: AccountModel
 }
 
 export const AuthContext = React.createContext<Props>({
   account: null as any,
-  isLoggedIn: false
 })
 
 export const AuthProvider: React.FC = (props) => {
-  const [isLogged, setIsLogged] = useState(true)
   const [account, setAccount] = useState<AccountModel | null>(null)
   const navigate = useNavigate()
 
@@ -27,7 +24,6 @@ export const AuthProvider: React.FC = (props) => {
 
   useEffect(() => {
     const account = getUser()
-    setIsLogged(!!account)
     if (!account) {
       return navigate(PageRoutes.SignIn)
     }
@@ -35,9 +31,8 @@ export const AuthProvider: React.FC = (props) => {
   }, [])
 
   const value = useMemo(() => ({
-    isLoggedIn: isLogged,
     account
-  } as Props), [isLogged, account])
+  } as Props), [account])
 
   return ( 
     <AuthContext.Provider value={value}>
