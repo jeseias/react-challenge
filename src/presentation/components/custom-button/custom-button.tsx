@@ -6,7 +6,7 @@ const CustomButton: React.FC<ButtonProps> = ({ children,  ...rest}) => {
     <Button 
       display="block"
       borderRadius="4rem" 
-      bg="secondary.600" 
+      bg="primary.600" 
       minWidth="16.1rem" 
       fontSize="1.4rem"
       fontWeight="600"

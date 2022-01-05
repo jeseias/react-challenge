@@ -25,7 +25,7 @@ const AuthInput: React.FC<Props & InputProps> = ({ label, ...rest }) => {
         top={isLabelVisible ? '1.1rem' : '.4rem'}
         left={isLabelVisible ? '1.276rem' : '.7rem'}
         fontSize={isLabelVisible ? '1.2rem' : '.9rem'}
-        color={isLabelVisible ? 'secondary.500' : 'grey'}
+        color={isLabelVisible ? 'primary.600' : 'grey'}
         fontWeight={isLabelVisible ? '600' : 'normal'}
         fontFamily="Montserrat"
         lineHeight={isLabelVisible ? '1.97rem' : '1.463rem'}
@@ -46,7 +46,7 @@ const AuthInput: React.FC<Props & InputProps> = ({ label, ...rest }) => {
         focusBorderColor="none"
         color="primary.600"
         onFocus={() => setIsLabelVisible(false)}
-        bg="transparent"
+        bg="white"
         {...rest}
       />
     </Box>
