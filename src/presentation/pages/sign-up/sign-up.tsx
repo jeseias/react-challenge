@@ -16,7 +16,7 @@ const SignUp = ({ addAccount }: SignUpProps) => {
     try {
       const account = await addAccount.add({
         email: data.email,
-        username: data.password,
+        username: data.username,
         password: data.password
       })
 
