@@ -18,7 +18,7 @@ const SignIn = ({ authentication, storage }: SignInProps) => {
         username: data.username,
         password: data.password
       })
-      if (account.token && !account.user.username) {
+      if (Boolean(account) && Boolean(account.token) && Boolean(account.user.username)) {
         storage.set(REACT_CHALLENGE_ACCOUNT, account)
         navigate(`${PageRoutes.Journals}/${account.user.id}`)
       }

@@ -19,8 +19,7 @@ const SignUp = ({ addAccount }: SignUpProps) => {
         username: data.username,
         password: data.password
       })
-
-      if (account && account.token && !account.user.username) {
+      if (Boolean(account) && Boolean(account.token) && Boolean(account.user.username)) {
         navigate(PageRoutes.SignIn)
       }
     } catch (error) {

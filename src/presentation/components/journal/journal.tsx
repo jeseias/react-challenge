@@ -33,7 +33,7 @@ const Journal: React.FC<JournalProps> = ({ title, id }) => {
         h="100%"
         w="1.1rem"
       />
-      <Title color="inherit">{title}</Title>
+      <Title color="inherit" w="90%" m="0 auto" textAlign="center">{title}</Title>
     </Flex>
   )
 }
