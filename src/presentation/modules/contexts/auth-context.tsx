@@ -24,7 +24,7 @@ export const AuthProvider: React.FC = (props) => {
 
   useEffect(() => {
     const account = getUser()
-    if (!account) {
+    if (!account || !account.user.username) {
       return navigate(PageRoutes.SignIn)
     }
     setAccount(account)

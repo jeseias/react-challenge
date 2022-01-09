@@ -3,9 +3,10 @@ import React, { useState } from 'react'
 
 type Props = {
   label: string
+  register: any
 }
 
-const AuthInput: React.FC<Props & InputProps> = ({ label, ...rest }) => {
+const AuthInput: React.FC<Props & InputProps> = ({ label, register, ...rest }) => {
   const [isLabelVisible, setIsLabelVisible] = useState(true)
 
   return (
@@ -47,6 +48,7 @@ const AuthInput: React.FC<Props & InputProps> = ({ label, ...rest }) => {
         color="primary.600"
         onFocus={() => setIsLabelVisible(false)}
         bg="white"
+        {...register}
         {...rest}
       />
     </Box>

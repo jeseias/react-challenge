@@ -1,32 +1,26 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Box, Flex } from "@chakra-ui/react"
 import { LinkText, LogoSVG, AuthTitle, CustomButton, AuthInput } from 'presentation/components'
 import { PageRoutes } from 'main/constants/page-routes'
-import { AddAccount } from 'domain/usecases/add-account'
-import { LocalStorageAdapter } from 'infra/cache'
 import { useNavigate } from 'react-router-dom'
+import { useForm, SubmitHandler } from 'react-hook-form'
 
-type Props = {
-  addAccount: AddAccount
-  storage: LocalStorageAdapter
-}
-
-const SignUp: React.FC<Props> = ({ addAccount }: Props) => {
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+import { SignUpProps, SignUpInputs } from './sign-up.types'
+ 
+const SignUp = ({ addAccount }: SignUpProps) => {
+  const { register, handleSubmit, formState: { errors } } = useForm<SignUpInputs>()
 
   const navigate = useNavigate()
 
-  const handleAddAccount = async () => {
+  const handleAddAccount: SubmitHandler<SignUpInputs> = async (data) => {
     try {
       const account = await addAccount.add({
-        email: email,
-        username: username,
-        password: password
+        email: data.email,
+        username: data.password,
+        password: data.password
       })
 
-      if (account) {
+      if (account && account.token && account.user.username) {
         navigate(PageRoutes.SignIn)
       }
     } catch (error) {
@@ -42,12 +36,14 @@ const SignUp: React.FC<Props> = ({ addAccount }: Props) => {
           <AuthTitle>Sign Up</AuthTitle>
           <LinkText to={PageRoutes.SignIn} bold tiny>Already have an account</LinkText> 
         </Flex>
-        <Box>
+        <form onSubmit={handleSubmit(handleAddAccount)}>
+          <Box>
             <Box mb="2.9rem">
               <AuthInput
-                label="Define a username" 
-                value={username} 
-                onChange={e => setUsername(e.target.value)} 
+                label={errors.username?.message ?? "Define a username" }
+                register={{...register('username', {
+                  required: true
+                })}}
                 data-testid="username-input"
               />
             </Box>
@@ -55,21 +51,20 @@ const SignUp: React.FC<Props> = ({ addAccount }: Props) => {
               <AuthInput 
                 label="Set your password" 
                 type="password" 
-                value={password} 
-                onChange={e => setPassword(e.target.value)} 
+                register={{...register('password')}}
                 data-testid="password-input" 
               />
             </Box>
             <AuthInput 
               label="Email (optional)" 
-              value={email} 
-              onChange={e => setEmail(e.target.value)} 
+              register={{...register('email')}}
               data-testid="email-input" 
             />
-        </Box> 
-        <Flex justifyContent="center" mt="4rem">
-          <CustomButton onClick={handleAddAccount}>Sign Up</CustomButton>
-        </Flex>
+          </Box> 
+          <Flex justifyContent="center" mt="4rem">
+            <CustomButton type="submit">Sign Up</CustomButton>
+          </Flex>
+        </form>
       </Box>
     </Box>
   )

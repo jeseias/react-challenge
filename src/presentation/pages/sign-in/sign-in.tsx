@@ -1,31 +1,26 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { Box, Flex } from "@chakra-ui/react"
 import { LinkText, LogoSVG, AuthTitle, CustomButton, AuthInput } from 'presentation/components'
 import { PageRoutes } from 'main/constants/page-routes'
-import { Authentication } from 'domain/usecases'
-import { LocalStorageAdapter } from 'infra/cache'
 import { REACT_CHALLENGE_ACCOUNT } from 'presentation/modules/contexts/auth-context'
-import { useNavigate } from 'react-router-dom'
 
-type Props = {
-  authentication: Authentication
-  storage: LocalStorageAdapter
-}
+import { SignInProps, SignInInputs } from './sign-in.types'
 
-const SignIn = ({ authentication, storage }: Props) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+const SignIn = ({ authentication, storage }: SignInProps) => {
   const navigate = useNavigate()
+  const { register, handleSubmit, formState: { errors } } = useForm<SignInInputs>()
 
-  const handleAuthentication = async () => {
+  const handleAuthentication: SubmitHandler<SignInInputs> = async (data) => {
     try {
       const account = await authentication.auth({
-        username, 
-        password
+        username: data.username,
+        password: data.password
       })
-      if (account.token) {
+      if (account.token && account.user.username) {
         storage.set(REACT_CHALLENGE_ACCOUNT, account)
-        navigate(`${PageRoutes.JournalsList}/${account.user.id}`)
+        navigate(`${PageRoutes.Journals}/${account.user.id}`)
       }
     } catch (error) {
       console.error(error)
@@ -40,29 +35,33 @@ const SignIn = ({ authentication, storage }: Props) => {
           <AuthTitle>Sign In</AuthTitle>
           <LinkText to={PageRoutes.SignUp} bold tiny>Sign up</LinkText> 
         </Flex>
-        <Box>
-          <Box mb="2.9rem">
-            <AuthInput 
-              label="Your username" 
-              value={username} 
-              onChange={e => setUsername(e.target.value)} 
-              data-testid="username-input"
+        <form onSubmit={handleSubmit(handleAuthentication)}>
+          <Box>
+            <Box mb="2.9rem">
+              <AuthInput 
+                label={errors.username?.message ?? "Your username" }
+                register={{...register('username', {
+                  required: 'Username is required',
+                })}}
+                data-testid="username-input"
+              />
+            </Box>
+            <AuthInput
+              label={errors.password?.message ?? "Your password" }
+              type="password" 
+              register={{...register('password', {
+                required: 'Password is required',
+              })}}
+              data-testid="password-input"
             />
           </Box>
-          <AuthInput
-           label="Your password" 
-           type="password" 
-           value={password} 
-           onChange={e => setPassword(e.target.value)} 
-           data-testid="password-input"
-          />
-        </Box>
-        <Flex justifyContent="flex-end" mt="1.2rem">
-          <LinkText to={PageRoutes.ForgotPassword} tiny>Forgot Password?</LinkText> 
-        </Flex>
-        <Flex justifyContent="center" mt="4rem">
-          <CustomButton onClick={handleAuthentication}>Sign In</CustomButton>
-        </Flex>
+          <Flex justifyContent="flex-end" mt="1.2rem">
+            <LinkText to={PageRoutes.ForgotPassword} tiny>Forgot Password?</LinkText> 
+          </Flex>
+          <Flex justifyContent="center" mt="4rem">
+            <CustomButton type="submit">Sign In</CustomButton>
+          </Flex>
+        </form>
       </Box>
     </Box>
   )
