@@ -42,7 +42,7 @@ const SignUp = ({ addAccount }: SignUpProps) => {
               <AuthInput
                 label={errors.username?.message ?? "Define a username" }
                 register={{...register('username', {
-                  required: true
+                  required: 'Username is required'
                 })}}
                 data-testid="username-input"
               />
@@ -51,7 +51,9 @@ const SignUp = ({ addAccount }: SignUpProps) => {
               <AuthInput 
                 label="Set your password" 
                 type="password" 
-                register={{...register('password')}}
+                register={{...register('password', {
+                  required: 'Password is required' 
+                })}}
                 data-testid="password-input" 
               />
             </Box>
