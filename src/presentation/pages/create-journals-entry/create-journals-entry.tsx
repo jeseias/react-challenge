@@ -25,11 +25,13 @@ const CreateJournalsEntry: React.FC<Props> = ({ saveEntry }: Props) => {
 
   const handleSaveEntry = async () => {
     try {
-      const result = await saveEntry.save({
-        title: name,
-        content: content,
-      })
-      if (result.entry) handleGoBack()
+      if (name && content) {
+        const result = await saveEntry.save({
+          title: name,
+          content: content,
+        })
+        if (result.entry) handleGoBack()
+      }
     } catch (error) {
       console.error(error)
     }
