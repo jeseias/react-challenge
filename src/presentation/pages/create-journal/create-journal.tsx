@@ -16,12 +16,14 @@ const CreateJournal: React.FC<Props> = ({ saveJournal }: Props) => {
 
   async function handleSaveJournal() {
     try {
+      if (name) {
         await saveJournal.save({ 
           title: name,
           userId,
           type: 'public' 
         })
         navigate(`${PageRoutes.Journals}/${userId}`)
+      }
     } catch (error) {
       console.error(error)  
     }
@@ -57,7 +59,7 @@ const CreateJournal: React.FC<Props> = ({ saveJournal }: Props) => {
         <Title maxWidth="85%">{name}</Title>
       </Flex> 
       <TextField 
-        placeholder="journal title" 
+        placeholder="journal title"
         bg="rgba(255,255,255,.42)" 
         color="primary.500"
         fontSize="1.2rem"
